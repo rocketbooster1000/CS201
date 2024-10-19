@@ -22,7 +22,7 @@ The left/first was taken in March 2019, the right/second on October 9, 2020)
 
 The screen shot below here is from October 2024.
 <div align="center">
-  <img width="384" height="344 "src="p4-figures/googleSearch2024.png">
+  <img width="384" height="344 "src="p4-figures/googlesearch2024.png">
 </div>
 
 
