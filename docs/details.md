@@ -20,6 +20,11 @@ The left/first was taken in March 2019, the right/second on October 9, 2020)
   <img width="384" height="345" src="p4-figures/googleSearch2.png">
 </div>
 
+The screen shot below here is from October 2024.
+<div align="center">
+  <img width="384" height="344 "src="p4-figures/googleSearch2024.png">
+</div>
+
 
 Although finding terms that contain a query by searching through all possible results is possible, these applications need some way to select only the most useful terms to display (since users will likely not comb through thousands of terms, nor will obscure terms like "duke cookiemonster" be useful to most users). Thus, autocomplete algorithms not only need a way to find terms that start with or contain the prefix, but a way of determining how likely each one is to be useful to the user and displaying "good" terms first. This all needs to be done efficiently so that a user can see completions in real time.
 
