@@ -142,7 +142,7 @@ the value at index `high` in the code for `firstIndex`.
 You're given two classes to help verify that your methods are correct and meet performance requirements. The JUnit tests in `TestBinarySearchLibrary` can help you verify that your methods return the correct values. The output of running `BinaryBenchmark` can help verify both ***correctness and performance requirements.*** The output using a correct `BinarySearchLibrary` class is shown below when running `BinaryBenchmark` (note,the code is actually in the `firstMatch` method you'll copy to `BinarySearchLibrary`). The values in both `index` columns should be the same: the location of the first occurrence of the target `banana`. The `scomps` column is the number of comparisons made by the slow implementation `firstIndexSlow`. The `fcomps` column is the number of comparisons made by code you'll move to `firstIndex`. You can modify to test for `lastIndex` to see if it's similar.
 ```
     size  sdex  scomps fdex fcomps
-    1024	0	644	    0	13
+    1024	0	644     0	13
     2048	0	1297	0	14
     4096	0	2578	0	15
     8192	0	5139	0	16
