@@ -10,7 +10,7 @@ This is the directions document for Project 4 Autocomplete in CompSci 201 at Duk
 For details, see the [details document](docs/details.md) -- you'll find a high-level overview here. To complete the assignment you'll do the following, roughly in the order shown.
 
 1. Run `AutocompleteMain` using `BruteAutoComplete` (complete in the starter code) to see how the autocomplete application works. 
-2. Implement the `compare` method in the `PrefixComparator` class that is used in the `BinarySearchAutocomplete` class. Test with `TestTerm`.
+2. Implement the `compare` method in the `PrefixComparator` class that is used in the `BinarySearchAutocomplete` class. Test (JUnit) with `TestTerm`.
 3. Implement two methods in `BinarySearchLibrary`: `firstIndex` and `lastIndex`, both of which will use the `PrefixComparator` you completed in the previous step. Test with `TestBinarySearchLibrary`. **We recommend you try to finish these first three steps early**.
 4. Finish implementing `BinarySearchAutocomplete` that extends `Autocompletor` by completing the `topMatches` method. This will use the `firstIndex` and `lastIndex` methods you wrote in the previous step and the code in `BruteAutocomplete.topMatches`  as a model. Test with `TestBinarySearchAutocomplete` and running `AutocompleteMain` using `BinarySearchAutocomplete` (uncomment in lines 21-23 to change the class used).
 5. Create and implement a new class `HashListAutocomplete` that implements interface `Autocompletor`. Test by running `AutocompleteMain` using `HashListAutocomplete` (uncomment in lines 21-23 to change the class used).
@@ -19,9 +19,9 @@ For details, see the [details document](docs/details.md) -- you'll find a high-l
 
 ## Part 1: Run Autocomplete Main
 
-When you fork and clone the project you'll be able to run the `main` method of `AutocompleteMain`. Doing so will launch a "GUI" (Graphical User Interface) that allows you to select a data file. The data file will determine the set of possible words to be recommended by the autocompleter application, and also includes weights for how common the words are. Several such files are included along with this project.
+When you fork and clone the project you'll be able to run the `main` method of `AutocompleteMain`. Doing so will launch a "GUI" (Graphical User Interface) that allows you to select a data file. The data file will determine the set of possible words to be recommended by the autocompleter application, and also includes weights for how common the words are. Several such files are included along with this project. (Note: you may get an error about _Secure Coding_ in the terminal/console when running the GUI. Just ignore that.)
 
-Once you select a file, the GUI will prompt you to enter a term. As you type, you should see the most common words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
+After you select a file, the GUI will allow you to enter a term. As you type, you should see the most common words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
 
 <div align="center">
   <img src="p4-figures/astrachanSearch.png">
@@ -32,7 +32,7 @@ By default, `AutocompleteMain` is using `BruteAutocomplete` to find the correct 
 
 ## Part 2: Implement the `compare` method in `PrefixComparator`
 
-A `PrefixComparator` object is obtained by calling `PrefixComparator.getComparator` with an integer argument `r`, the size of the prefix for comparison purposes. The value is stored in the instance variable `myPrefixSize` as you'll see in the code. This class is used in `BinarySearchAutocomplete`, but not in `BruteAutocomplete`. **See the [details document](docs/details.md) for details on the class and method**.
+A `PrefixComparator` object is obtained by calling `PrefixComparator.getComparator` with an integer argument `r`, the size of the prefix for comparison purposes. The prefix size value is stored in the instance variable `myPrefixSize` as you'll see in the code. This class is used in `BinarySearchAutocomplete`, but not in `BruteAutocomplete`. **See the [details document](docs/details.md) for details on the class and method**.
 
 You can test your code with the `TestTerm` JUnit class which has several tests for the `PrefixComparator` class.
 
@@ -56,7 +56,7 @@ You'll also see a `Term` object called `dummy` created from the `String` passed 
 
 ## Part 5: Implement `HashListAutocomplete`
 
-In this part, you will provide one more implementation of the `Autocompletor` interface, this time from scratch. Unlike `BruteAutocomplete` and `BinarySearchAutocomplete`, this third implementation will be based on the use of a `HashMap` instead of the binary search algorithm. This class will provide an `O(1)` implementation of `topMatches` --- with a tradeoff of requiring more memory.
+In this part, you must write another implementation of the `Autocompletor` interface, this time from scratch. Unlike `BruteAutocomplete` and `BinarySearchAutocomplete`, this third implementation will be based on the use of a `HashMap` instead of the binary search algorithm. This class will provide an `O(1)` implementation of `topMatches` --- with a tradeoff of requiring more memory.
 
 A skeleton of `HashListAutocomplete` can be found in the `HashListAutocomplete.java` file that `implements` the `Autocompletor` interface. **For details about the class and code you write see [the details document](docs/details.md).**
 
@@ -65,9 +65,9 @@ A skeleton of `HashListAutocomplete` can be found in the `HashListAutocomplete.j
 
 You'll submit the analysis as a PDF separate from the code in Gradescope. 
 
-**Question 1.** Inside of `BenchmarkForAutocomplete`, uncomment the two other implementation names so that `myCompletorNames` has all three Strings: `"BruteAutocomplete"`, `"BinarySearchAutocomplete"`, and `"HashListAutocomplete"` (if you want to benchmark only a subset of these, perhaps because one isn't working, just leave it commented out).
+**Question 1.** Copy/Paste the results of when you run benchmarking code in `BenchmarkForAutoComplete`. In that class code look at the instance variables for `BenchmarkForAutocomplete` and uncomment the two other implementation names so that `String[] myCompletorNames` has all three Strings: `"BruteAutocomplete"`, `"BinarySearchAutocomplete"`, and `"HashListAutocomplete"` (if you want to benchmark only a subset of these, perhaps because one isn't working, just leave it commented out).
 
-Run `BenchmarkForAutocomplete` three times, once for each of the files in the Benchmark program: `threeletterwords.txt`, `fourletterwords.txt`, and `alexa.txt`. You can change which file is being used inside of the `doMark` method. **Copy and paste all three results into your analysis**. An example and detailed information about the output is described in the expandable section below.
+Run `BenchmarkForAutocomplete` three times, once for each of the files you'll see in the Benchmark program: `threeletterwords.txt`, `fourletterwords.txt`, and `alexa.txt`. You can change which file is being used inside of the `doMark` method. **Copy and paste all three results into your analysis**. An example and detailed information about the output is described in the section below.
 
 #### Benchmarking Details
 
@@ -75,8 +75,8 @@ On Professor Astachan's laptop, the first few lines are what's shown below for `
 
 - The `init time` data shows how long it took to initialize the different implementations.
 - The `search` column shows the prefix being used to search for autocompletions; unlabeled "search" is for an empty string `""` which matches on every term. 
-- The `size` column shows how many terms have `search` as a prefix. This is described as `M` earlier in [part 4](#part-4-finish-implementing-topmatches-in-binarysearchautocomplete).
-- `#match` shows the number of highest weight results being returned by `topMatches`. This is described as `k` earlier in [part 4](#part-4-finish-implementing-topmatches-in-binarysearchautocomplete).
+- The `size` column shows how many terms have `search` as a prefix. This is described as `M` in the [details](docs/details.md) document.
+- `#match` shows the number of highest weight results being returned by `topMatches`. This is described as `k` in the description of runtimes in the [details](docs/details.md) document.
 - The next three columns give the running time in seconds for `topMatches` with the given parameters for the different implementations.
 
 
@@ -93,7 +93,7 @@ b       676     50      0.00016033      0.00011954      0.00000292
 ```
 
 **Question 2.** Let `N` be the total number of terms, let `M` be the number of terms that prefix-match a given `search` term (the `size` column above), and let `k` be the number of highest weight terms returned by `topMatches` (the `#match` column above). The runtime complexity of `BruteAutocomplete` is `O(N + M log(k))`. The runtime complexity of `BinarySearchAutocomplete` is `O(log(N) + M log(k))`. Yet you should notice (as seen in the example timing above) that `BruteAutocomplete` is similarly efficient or even slightly more efficient than `BinarySearchAutocomplete` on the empty `search` String `""`. Answer the following:
-- Explain why this observation (that `BruteAutocomplete` is similarly efficient or even slightly more efficient than `BinarySearchAutocomplete` on the empty `search` String `""`) makes sense given the values of `N` and `M` -- in other words, is this an anomaly based on small clocktimes or is there a reason for it given the values of N, M, and what will happen with BinarySearch when searching for the empty string?
+- Explain why this observation (that `BruteAutocomplete` is similarly efficient or even slightly more efficient than `BinarySearchAutocomplete` on the empty `search` String `""`) makes sense given the values of `N` and `M` -- in other words, is this an anomaly based on small clocktimes or is there a reason for it given the values of N, M, and what will happen with BinarySearch when searching for the empty string? (Hint: how many terms match the empty prefix?)
 
 
 **Question 3.** Run the `BenchmarkForAutocomplete` again using `alexa.txt` but doubling `matchSize` to `100` (`matchSize` is specified in the `runAM` method). Again copy and paste your results. Recall that `matchSize` determines `k`, the number of highest weight terms returned by `topMatches` (the `#match` column above). Do your data support the hypothesis that the dependence of the runtime on `k` is logarithmic for `BruteAutocomplete` and `BinarySearchAutocomplete`?
