@@ -63,6 +63,8 @@ A skeleton of `HashListAutocomplete` can be found in the `HashListAutocomplete.j
 
 ## Analysis Questions and Benchmarking
 
+For a template to use when submitting to Gradescope, [use this .docx](https://courses.cs.duke.edu/compsci201/fall24/assign/p4-analysis-template.docx).
+
 You'll submit the analysis as a PDF separate from the code in Gradescope. 
 
 **Question 1.** Copy/Paste the results of when you run benchmarking code in `BenchmarkForAutoComplete`. In that class code look at the instance variables for `BenchmarkForAutocomplete` and uncomment the two other implementation names so that `String[] myCompletorNames` has all three Strings: `"BruteAutocomplete"`, `"BinarySearchAutocomplete"`, and `"HashListAutocomplete"` (if you want to benchmark only a subset of these, perhaps because one isn't working, just leave it commented out).
