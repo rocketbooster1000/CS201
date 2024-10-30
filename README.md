@@ -1,6 +1,6 @@
 # Project 5: Percolation
 
-This is the directions document for Project 5 Percolation in CompSci 201 at Duke University, Fall 2023.
+This is the directions document for Project 5 Percolation in CompSci 201 at Duke University, Fall 2024.
 
 
 **See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details. This current document provides a high-level overview of the assignment.
@@ -21,7 +21,7 @@ This is the directions document for Project 5 Percolation in CompSci 201 at Duke
 In this assignment, you will write a program to estimate the value of the [percolation threshold](http://en.wikipedia.org/wiki/Percolation_thresholds) via [Monte Carlo](http://en.wikipedia.org/wiki/Monte_Carlo_method) simulation. In doing so, you will better understand depth-first-search, breadth-first-search, union-find structures, and the use of computer simulations for statistical inquiry. _**Your goal will be to explore trade-offs in several approaches to estimate the percolation threshold in an NxN system.**_ 
 
 ### Acknowledgements 
-This assignment originated at Princeton; thanks to Kevin Wayne from whom staff at Duke first learned of it, and to Jeff Forbes when he was at Duke for ensuring we kept it as part of the assignment-stack at Duke.
+This assignment originated at Princeton; thanks to Kevin Wayne from whom staff at Duke first learned of it, and to Jeff Forbes when he was at Duke for ensuring we kept it as part of the assignment-stack at Duke. We've revised it at Duke to be about trade-offs, DFS, BFS, and tangentially about Union-Find.
 
 
 ### Vocabulary
@@ -67,7 +67,7 @@ Here's a high-level view of the assignment. This is enough information to know w
 You'll create three new implementations of the `IPercolate` interface that you'll test, time, and answer questions about in analyzing tradeoffs. 
 1. Create class `PercolationDFS` that extends `PercolationDefault`. Implement one constructor, it simply calls `super` appropriately. You will implement one method, `@Override` the method `search` to use a Stack rather than recursion.
 2. Create class `PercolationBFS` that extends `PercolationDefault`. Implement one constructor, it simply calls `super` appropriately. You will implement one method, `@Override` the method `search` to use BFS instead of DFS. 
-3. Create class `PercolationUF` that implements the `IPercolate` interface. Implement a constructor and every method from the interface. Instance variables and methods are described in the [the details document](docs/details.md)
+3. **Challenge** Create class `PercolationUF` that implements the `IPercolate` interface. Implement a constructor and every method from the interface. Instance variables and methods are described in the [the details document](docs/details.md)
 
 For all three classes, test the implementation using the JUnit test class `TestPercolate` by changing which of the three implementations is used. You **must also test using the `InteractivePercolationVisualizer` simulating the percolation using your own click-tests.**  Do not depend only on the JUnit tests.
 
@@ -89,7 +89,7 @@ This class extends the `PercolationDFSDefault` class just as `PercolationBFS` do
 2.  You'll need to `@Override` `search` to use a `Queue` just as you used a `Stack` for `PercolationDFS`.
 
 
-## Part 3: `PercolationUF`
+## Part 3: `PercolationUF` **Challenge/Optional**
 This class `implements` the `IPercolate` interface and will use an `IUnionFind` object to keep track of open and full cells. See the video at the beginning of the assignment for general ideas. You can also look at the `MazeDemo` class in the Percolate assignment to see how union-find can be used. 
 
 See [the details document](docs/details.md) for details.
@@ -97,12 +97,11 @@ See [the details document](docs/details.md) for details.
 
 ## Benchmarking and Analysis
 
-Copy/Paste the runs described below and answer the questions that are included below. You will answer these questions in a separate PDF document you submit to gradescope.
+Copy/Paste the runs described below and answer the questions that are follow. You will answer these questions in a separate PDF document you submit to gradescope.
 
 You're given `PercolationStats.java` which performs benchmarks for an `IPercolate` object using grid sizes of 100, 200, 400, 800, 1600, and 3200. If you don't change the value of the public `RANDOM_SEED` variable you should _**see the same mean values**_ of the Percolation threshold shown below. Your timing values may vary, but for all implementations using 10 trials you should see the same mean and standard deviation values. A sample run is provided below from running `PercolationDFSFast` on ola's laptop computer. **You will eventually reach a StackOverflowError because you’re running an infinite benchmark on a computer with finite memory. This is normal!**
 
-<details>
-<summary>Expand for example simulation data</summary>
+### Expand for example simulation data
 
 ```
 simulation data for 10 trials
@@ -120,11 +119,11 @@ Exception in thread "main" java.lang.StackOverflowError
     at PercolationDFS.dfs(PercolationDFS.java:109)
     [... rest truncated]
 ```
-</details>
 
-Copy/paste the results for running `PercolationStats.java` for 10 trials on each `IPercolate` object (`PercolationDFS, PercolationBFS, PercolationUF`) in your analysis document. 
 
-So first copy/paste data for the grid sizes shown above for all three `IPercolate` classes you implement for this project. Then answer these questions using data from `PercolationUF` with `QuickUWPC`.
+Copy/paste the results for running `PercolationStats.java` for 10 trials on each `IPercolate` object (`PercolationDFS`, `PercolationBFS`, optionally `PercolationUF`) in your analysis document. 
+
+So first copy/paste data for the grid sizes shown above for all `IPercolate` classes you implement for this project. Then answer these questions using data from running `PercolationBFS` (and optionally `PercolationUF` with `QuickUWPC`).
 1. How does doubling the grid size affect running time (keeping # trials fixed)? Specifically, by roughly what factor does the runtime increase each time we double the grid size?
 2. How does doubling the number of trials, e.g., to 20 (and more) affect running time? Specifically, by roughly what factor does the runtime increase each time we double the number of trials?
 3. Based on your observations of the timings with 10 trials, estimate the largest grid size you can run completely within at most 24 hours with 10 trials. Explain your reasoning.
@@ -132,7 +131,7 @@ So first copy/paste data for the grid sizes shown above for all three `IPercolat
 
 **After completing the analysis questions you should submit your answers as a PDF to the P6-analysis project on Gradescope.**
 
-## Submitting, Reflect, and Grading
+## Submitting and Grading
 
 Push your code to Git. Do this often. Once you have run and tested your completed program locally:
 
@@ -144,9 +143,9 @@ For this project, the grading will be:
 
 | Points | Grading Criteria |
 | --- | --- |
-| 6 | PercolationDFS |
-| 6 | PercolationBFS |
-| 6 | PercolationUF |
+| 8 | PercolationDFS |
+| 8 | PercolationBFS |
+| 4 | PercolationUF (optional) |
 | 8 | Analysis  |
 
 # Autograder API Checker
