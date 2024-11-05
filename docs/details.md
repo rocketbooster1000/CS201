@@ -44,14 +44,14 @@ The `--wait` command means that whenever `git` opens something in VS Code for yo
 **Important note: The `search` method will mark an open cell as full and then proceed to mark the open cells connected to that cell as full. As a result, you should terminate the method early (return ;) if the cell is full or blocked before creating the Queue.**
 
 For this class, you'll @Override the `search` method to use
-an explicit stack as shown in the [IterativeDFSBlobModel class](https://coursework.cs.duke.edu/201fall23/blobs/-/blob/main/IterativeDFSBlobModel.java) with a stack of `int[]` objects just as in that code.
+an explicit stack as shown in the [IterativeDFSBlobModel class](https://coursework.cs.duke.edu/201fall24/backtracking/-/blob/main/src/IterativeDFSBlobModel.java) with a stack of `int[]` objects just as in that code.
 
 # Percolation Classes You Will Write/Test/Analyze
 
 
 ## PercolationDFS
 
-You'll override the `search` method inherited from `PercolationDefault` to use a `Stack` rather than recursion in implementing a DFS approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall23/blobs) we've seen in class, especially the [IterativeDFSBlobModel](https://coursework.cs.duke.edu/201fall23/blobs/-/blob/main/IterativeDFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDFSDefault.`** 
+You'll override the `search` method inherited from `PercolationDefault` to use a `Stack` rather than recursion in implementing a DFS approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall24/backtracking/-/blob/main/src/Blobs.java) we've seen in class, especially the [IterativeDFSBlobModel](https://coursework.cs.duke.edu/201fall24/backtracking/-/blob/main/src/IterativeDFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDFSDefault.`** 
 
 As an invariant, consider that **every cell on the stack should be `FULL`,** and you'll likely need to mark each `myGrid` cell as `FULL` before
 pushing onto the stack.
@@ -62,7 +62,7 @@ See below on testing using the `InteractivePercolationVisualizer` and the JUnit 
 
 ## PercolationBFS
 
-You'll override the `search` method inherited from `PercolationDefault` to use a `Queue` and a breadth-first-search (BFS) approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall23/blobs) we've seen in class, especially the [BFSBlobModel](https://coursework.cs.duke.edu/201fall23/blobs/-/blob/main/BFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDFSDefault.`** 
+You'll override the `search` method inherited from `PercolationDefault` to use a `Queue` and a breadth-first-search (BFS) approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall24/backtracking/-/blob/main/src/Blobs.java) we've seen in class, especially the [BFSBlobModel](https://coursework.cs.duke.edu/201fall24/backtracking/-/blob/main/src/BFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDefault.`** 
 
 See below on testing using the `InteractivePercolationVisualizer` and the JUnit testing class `TestPercolation` to test.
 
@@ -79,9 +79,9 @@ For all three classes you write that extend `PercolationDefault` or implement th
 4. Modify and run `TestPercolation`. You will need to change the method `getPercolator` to return a `PercolationDFS` object.
 
 
-## PercolationUF
+## PercolationUF (Challenge, optional)
 
-Each of the NxN cells is mapped to a number, and these numbers represent a cell's set for the disjoint-set/union-find algorithm. Initially every cell is a single number in its own set. You'll need two additional numbers, `VTOP` and `VBOTTOM`, for a total of N<sup>2</sup>+2 values. For information on these two extra numbers/variables, see [From DFS to Union-Find: two approaches compared/contrasted](https://youtu.be/a_YMnW4hzmI).
+Each of the NxN cells is mapped to a number, and these numbers represent a cell's set for the disjoint-set/union-find algorithm. Initially every cell is a single number in its own set. You'll need two additional numbers, `VTOP` and `VBOTTOM`, for a total of N<sup>2</sup>+2 values. For information on these two extra numbers/variables, see [From DFS to Union-Find (Fall 2023): two approaches compared/contrasted](https://youtu.be/a_YMnW4hzmI).
 
 ### Instance variables for PercolationUF
 1. A two-dimensional array of boolean values, `myGrid`, that represents whether a cell is open. Initially `myGrid[r][c]` should be `false` which is the default value when you create the grid. Each time a cell (r,c) is open, `myGrid[r][c]` will be set to true.
