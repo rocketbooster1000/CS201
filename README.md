@@ -5,7 +5,7 @@ This is the directions document for Project 5 Percolation in CompSci 201 at Duke
 
 **See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details. This current document provides a high-level overview of the assignment.
 
-**You are STRONGLY encouraged to work with a partner on P5!** (and on P6 and P7). See [the details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill [out this form to request a pairing](https://forms.office.com/r/nv58WSSsUh).
+**You are STRONGLY encouraged to work with a partner on P5!** (and on P6 and P7). See [the details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill [out this form to request a pairing](https://bit.ly/p5-perc-partner-2024).
 
 ## Outline 
 - [Project Introduction](#project-introduction)
@@ -50,7 +50,7 @@ The percolation threshold problem is: if sites are independently set to be open 
 When N is sufficiently large, there is a threshold value `p*` (read this as p-star) such that when `p < p*` a random N-by-N grid almost never percolates, and when `p > p*`, a random N-by-N grid almost always percolates. No mathematical solution for determining the percolation threshold `p*` has yet been derived. Your task is to write a suite of computer programs to visualize the percolation process and estimate `p*` using Monte Carlo techniques. As you can see above, the percolation threshold in an NxN grid is about 0.593. The size of the grid doesn't matter as your simulations will show. 
 
 ### Helpful Videos 
-The video linked here helps explain the techniques you'll read about. This video may be helpful after reading the assignment, or to get grounded before reading. This video may help situate the classes you write: `PercolationDFS`, `PercolationBFS`, and `PercolationUF`. You should also view the recording from class on November 6 if you weren't there to see the `InteractivePercolationVisualizer` being used.
+The video that will be linked here helps explain the techniques you'll read about. This video may be helpful after reading the assignment, or to get grounded before reading. This video may help situate the classes you write: `PercolationDFS`, `PercolationBFS`, and `PercolationUF`. You should also view the recording from class on November 6 if you weren't there to see the `InteractivePercolationVisualizer` being used.
 
 
 ### MazeDemo
@@ -72,6 +72,10 @@ You'll create three new implementations of the `IPercolate` interface that you'l
 For all three classes, test the implementation using the JUnit test class `TestPercolate` by changing which of the three implementations is used. You **must also test using the `InteractivePercolationVisualizer` simulating the percolation using your own click-tests.**  Do not depend only on the JUnit tests.
 
 For the analysis you will run `PercolationStats` and answer the analysis questions. 
+
+## Early Engagement Points
+
+Fork and clone the program and then run the `InteractivePercolationVisualizer`. Click the minimum number of squares until the grid percolates and record that number, call it $N$. Then determine how many different ways you can make the system percolate with only clicking $N$ squares.
 
 
 ## Part 1 `PercolationDFS`
@@ -145,7 +149,7 @@ For this project, the grading will be:
 | --- | --- |
 | 8 | PercolationDFS |
 | 8 | PercolationBFS |
-| 4 | PercolationUF (optional) |
+| 0 | PercolationUF (8 engagement/challenge) |
 | 8 | Analysis  |
 
 # Autograder API Checker
