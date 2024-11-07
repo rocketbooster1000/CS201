@@ -7,13 +7,7 @@ This is the directions document for Project 5 Percolation in CompSci 201 at Duke
 
 **You are STRONGLY encouraged to work with a partner on P5!** (and on P6 and P7). See [the details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill [out this form to request a pairing](https://bit.ly/p5-perc-partner-2024).
 
-## Outline 
-- [Project Introduction](#project-introduction)
-- [Part 1: `PercolationDFS`](#part-1-percolationdfsfast)
-- [Part 2: `PercolationBFS`](#part-2-percolationbfs)
-- [Part 3: `PercolationUF`](#part-3-percolationuf)
-- [Benchmarking and Analysis](#benchmarking-and-analysis)
-- [Submitting, Reflect, and Grading](#submitting-reflect-and-grading)
+*You can earn early engagement points as described below.*
 
 
 ## Project Introduction
@@ -77,7 +71,7 @@ For the analysis you will run `PercolationStats` and answer the analysis questio
 
 Fork and clone the program and then run the `InteractivePercolationVisualizer`. Click the minimum number of squares until the grid percolates and record that number, call it $N$. Then determine how many different ways you can make the system percolate with only clicking $N$ squares.
 
-Next, determine if it's possible to click on O(N<sup>2</sup>) squares _without_ the system percolating. Write a few sentences on how it's possible to do that, or write an argument that it's not possible. Hint: $N/2$ is O(N<sup>2</sup>), think about a chess board.
+Next, determine if it's possible to click on O(N<sup>2</sup>) squares _without_ the system percolating. Write a few sentences on how it's possible to do that, or write an argument that it's not possible. Hint: $N^2/2$ is O(N<sup>2</sup>), think about a chess board.
 
 You'll submit the answers to these questions on [a form linked here](https://forms.office.com/r/NhcwMcJvsX). You must submit by Sunday evening for engagement points.
 
