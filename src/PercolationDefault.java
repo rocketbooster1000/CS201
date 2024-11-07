@@ -39,15 +39,11 @@ public class PercolationDefault implements IPercolate{
 	}
 
 	/**
-	 * Open the cell at [row,col], no action
-	 * if the cell is other than BLOCKED, meaning
-	 * there is action if BLOCKED, and state
-	 * will change to OPEN, and then perhaps FULL
-	 * if it should be, checked by calling
-	 * updateOnOpen
+	 * Open the cell at [row,col], no action if the cell is other than BLOCKED
+	 * State of cell will change to OPEN, then other cells may change state
+	 * because updateOnOpen is called
 	 * 
-	 * Subclasses can likely simply implement
-	 * search, called from updateOnOpen
+	 * Subclasses can likely simply implement search, called from updateOnOpen
 	 */
 	@Override
 	public void open(int row, int col) {
@@ -93,10 +89,10 @@ public class PercolationDefault implements IPercolate{
 
 	/**
 	 * Update cells that might be FULL rather
-	 * than OPEN, the cell at [row,col] should
+	 * than OPEN. The cell at [row,col] should
 	 * have been just defined as OPEN rather
 	 * than BLOCKED, now check if it should be FULL
-	 * that is, updated when Open
+	 * that is, updated when Open, and check adjacent cells
 	 * @param row
 	 * @param col
 	 */
@@ -112,9 +108,10 @@ public class PercolationDefault implements IPercolate{
 			int nr = row + rd[k];
 			int nc = col + cd[k];
 			
+			// cell at [row][col] was just opened. Is a neighbor full?
 			if (inBounds(nr,nc) && isFull(nr,nc)) {
 				search(row,col);
-				return;
+				return;             // no need to continue to search
 			}
 		}
 	}
