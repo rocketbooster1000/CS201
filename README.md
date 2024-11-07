@@ -77,7 +77,7 @@ For the analysis you will run `PercolationStats` and answer the analysis questio
 
 Fork and clone the program and then run the `InteractivePercolationVisualizer`. Click the minimum number of squares until the grid percolates and record that number, call it $N$. Then determine how many different ways you can make the system percolate with only clicking $N$ squares.
 
-Next, determine if it's possible to click on $O(N<sup>2</sup>)$ squares _without_ the system percolating. Write a few sentences on how it's possible to do that, or write an argument that it's not possible. Hint: $N/2$ is $O(N<sup>2</sup>)$, think about a chess board.
+Next, determine if it's possible to click on O(N<sup>2</sup>) squares _without_ the system percolating. Write a few sentences on how it's possible to do that, or write an argument that it's not possible. Hint: $N/2$ is O(N<sup>2</sup>), think about a chess board.
 
 You'll submit the answers to these questions on [a form linked here](https://forms.office.com/r/NhcwMcJvsX). You must submit by Sunday evening for engagement points.
 
