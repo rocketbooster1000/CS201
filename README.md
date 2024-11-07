@@ -79,7 +79,7 @@ Fork and clone the program and then run the `InteractivePercolationVisualizer`. 
 
 Next, determine if it's possible to click on $O(N<sup>2</sup>)$ squares _without_ the system percolating. Write a few sentences on how it's possible to do that, or write an argument that it's not possible. Hint: $N/2$ is $O(N<sup>2</sup>)$, think about a chess board.
 
-You'll submit the answers to these questions on a form linked here. You must submit by Sunday evening for engagement points.
+You'll submit the answers to these questions on [a form linked here](https://forms.office.com/r/NhcwMcJvsX). You must submit by Sunday evening for engagement points.
 
 
 ## Part 1 `PercolationDFS`
