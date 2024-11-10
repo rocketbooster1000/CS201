@@ -122,6 +122,9 @@ Exception in thread "main" java.lang.StackOverflowError
     [... rest truncated]
 ```
 
+## Analysis Template
+
+Use this template for submitting your analysis on Gradescope [word template here](https://courses.cs.duke.edu/compsci201/fall24/assign/p5-analyasis.docx)
 
 Copy/paste the results for running `PercolationStats.java` for 10 trials on each `IPercolate` object (`PercolationDFS`, `PercolationBFS`, optionally `PercolationUF`) in your analysis document. 
 
@@ -129,7 +132,7 @@ So first copy/paste data for the grid sizes shown above for all `IPercolate` cla
 1. How does doubling the grid size affect running time (keeping # trials fixed)? Specifically, by roughly what factor does the runtime increase each time we double the grid size?
 2. How does doubling the number of trials, e.g., to 20 (and more) affect running time? Specifically, by roughly what factor does the runtime increase each time we double the number of trials?
 3. Based on your observations of the timings with 10 trials, estimate the largest grid size you can run completely within at most 24 hours with 10 trials. Explain your reasoning.
-4. Read this brief opinion article: [Cho and Cain, _Human-centered redistricting automation in the age of AI+, Science, September 2020](https://courses.cs.duke.edu/compsci201/fall24/netid/science-abd1879.pdf) about using statistical and computational techiques similar to those used in this assignment for socio-technical problems such as congressional districting. Write a paragraph about your thoughts after reading the article regarding the relationship between computational techniques and societal applications.
+4. Read this brief opinion article: [Cho and Cain, _Human-centered redistricting automation in the age of AI+, Science, September 2020](https://courses.cs.duke.edu/compsci201/fall24/netid/science-abd1879.pdf) about using statistical and computational techniques similar to those used in this assignment for socio-technical problems such as congressional districting. Write a paragraph about your thoughts after reading the article regarding the relationship between computational techniques and societal applications.
 
 **After completing the analysis questions you should submit your answers as a PDF to the P6-analysis project on Gradescope.**
 
