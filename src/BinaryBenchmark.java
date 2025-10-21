@@ -82,7 +82,7 @@ public class BinaryBenchmark {
         }
         return -1;
 	}
-	public void results() {
+	public void firstResults() {
 		String target = "apple";
 		CountedComparator<String> comp = new CountedComparator<>();
         System.out.printf("\tsize\tsdex\tscomps\tfdex\tfcomps\n");
@@ -107,8 +107,29 @@ public class BinaryBenchmark {
 							  size,slowdex,slowcount,fdex,fcomp);
 		}
 	}
+
+    public void lastResults() {
+		String target = "apple";
+		CountedComparator<String> comp = new CountedComparator<>();
+        System.out.printf("\tsize\tsdex\tscomps\tfdex\tfcomps\n");
+        for(int k = 10; k <= 20; k++) {
+			int size = 1 << k;						
+			ArrayList<String> list = createList(size);
+			
+            int slowdex = BinarySearchLibrary.lastIndexSlow(list,target,comp);
+            int slowcount = comp.getCount();
+			comp.reset();
+			int fdex = BinarySearchLibrary.lastIndex(list, target, comp);
+			int fcomp = comp.getCount();
+			System.out.printf("%8d\t%d\t%d\t%d\t%d\n",
+							  size,slowdex,slowcount,fdex,fcomp);
+		}
+	}
+
+
 	public static void main(String[] args) {
 		BinaryBenchmark bbm = new BinaryBenchmark();
-		bbm.results();
+		bbm.firstResults();
+        //bbm.lastResults();
 	}
 }
