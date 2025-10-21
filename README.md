@@ -1,6 +1,6 @@
 # Project 4: Autocomplete
 
-This is the directions document for Project 4 Autocomplete in CompSci 201 at Duke University, Fall 2024.
+This is the directions document for Project 4 Autocomplete in CompSci 201 at Duke University, Fall 2025.
 
 
 **See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
@@ -19,9 +19,9 @@ For details, see the [details document](docs/details.md) -- you'll find a high-l
 
 ## Part 1: Run Autocomplete Main
 
-When you fork and clone the project you'll be able to run the `main` method of `AutocompleteMain`. Doing so will launch a "GUI" (Graphical User Interface) that allows you to select a data file. The data file will determine the set of possible words to be recommended by the autocompleter application, and also includes weights for how common the words are. Several such files are included along with this project. (Note: you may get an error about _Secure Coding_ in the terminal/console when running the GUI. Just ignore that.)
+When you fork and clone the project you'll be able to run the `main` method of `AutocompleteMain`. Doing so will launch a "GUI" (Graphical User Interface) that allows you to select a data file. The data file will determine the set of possible words to be recommended by the autocompleter application, and also includes weights for how common/popular/heavy the words are. Several such files are included along with this project. (Note: you may get an error about _Secure Coding_ in the terminal/console when running the GUI. Just ignore that.)
 
-After you select a file, the GUI will allow you to enter a term. As you type, you should see the most common words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
+After you select a file, the GUI will allow you to enter a term. As you type, you should see the most common/heavy   words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
 
 <div align="center">
   <img src="p4-figures/astrachanSearch.png">
@@ -38,7 +38,8 @@ You can test your code with the `TestTerm` JUnit class which has several tests f
 
 ## Part 3: Implement `BinarySearchLibrary`
 
-The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method that, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also guarantee to find the first or last such index respectively. **Details on the methods you write are [in the details document](docs/details.md).**
+The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also guarantees to find the first or last such index respectively. **Details on the methods you write are [in the details document](docs/details.md).** Thus your methods are "better" than those
+in the `java.util` class.
 
 `BinarySearchAutocomplete` will use these methods along with the `PrefixComparator` you already completed to efficiently determine the *range of possible completions of a given prefix of a word typed so far*.
 
@@ -63,7 +64,8 @@ A skeleton of `HashListAutocomplete` can be found in the `HashListAutocomplete.j
 
 ## Analysis Questions and Benchmarking
 
-For a template to use when submitting to Gradescope, [use this .docx](https://courses.cs.duke.edu/compsci201/fall24/assign/p4-analysis-template.docx).
+For a template to use when submitting to Gradescope, [use this .docx](https://courses.cs.duke.edu/compsci201/fall25/assign/p4-analysis-template.docx). There's a PDF if you replace 
+the `.docx` with `.pdf` in the URL.
 
 You'll submit the analysis as a PDF separate from the code in Gradescope. 
 

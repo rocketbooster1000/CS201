@@ -1,14 +1,14 @@
-# Details for P4 Autocomplete in Fall 2024
+# Details for P4 Autocomplete in Fall 2025
 
 Many parts of the assignment, including workflow and the classes you use and write, are part of this document.
 
 ## Starter Code and Using Git
 
-**_You should have installed all software (Java, Git, VS Code) before completing this project._** You can find the [directions for installation here](https://coursework.cs.duke.edu/201fall24/resources-201/-/blob/main/installingSoftware.md) (including workarounds for submitting without Git if needed).
+**_You should have installed all software (Java, Git, VS Code) before completing this project._** You can find the [directions for installation here](https://coursework.cs.duke.edu/201fall25/resources-201/-/blob/main/installingSoftware.md) (including workarounds for submitting without Git if needed).
 
 We'll be using Git and the installation of GitLab at [coursework.cs.duke.edu](https://coursework.cs.duke.edu). All code for classwork will be kept here. Git is software used for version control, and GitLab is an online repository to store code in the cloud using Git.
 
-**[This document details the workflow](https://coursework.cs.duke.edu/201fall24/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully when working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes as explained.
+**[This document details the workflow](https://coursework.cs.duke.edu/201fall25/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully when working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes as explained.
 
 ## Project Background and Concepts
 
@@ -20,9 +20,10 @@ The left/first was taken in March 2019, the right/second on October 9, 2020)
   <img width="384" height="345" src="p4-figures/googleSearch2.png">
 </div>
 
-The screen shot below here is from October 2024.
+The screen shot below/left is from October 2024, and  October 2025 is below/right.
 <div align="center">
   <img width="384" height="344 "src="p4-figures/googlesearch2024.png">
+  <img width="384" height="344 "src="p4-figures/googlesearch2025.png">
 </div>
 
 
@@ -45,6 +46,9 @@ The assignment was originally developed by Kevin Wayne and Matthew Drabick at Pr
 
 ### PrefixComparator
 
+Much of the framework is given to you in `PrefixComparator.java`. However, you must
+add code to the `.compare` method as described below and in the code.
+
 You must use only the first `myPrefixSize` characters of the words stored in `Term` objects `v` and `w` that are passed to `PrefixComparator.compare`. However, if the length of either word is less than `myPrefixSize`, this comparator only compares up ***until the end of the shorter word.*** This means that although `"beeswax"` is greater than `"beekeeper"` when compared lexicographically, i.e., with the natural order for strings, the two words are considered equal using a `PrefixComparator.getComparator(3)` since only the first three characters are compared. More details and examples follow.
 
 #### More details on PrefixComparator
@@ -64,6 +68,14 @@ Here is a reference table for the `PrefixComparator` comparator.
 |4|bees|=|beeswax|"bees" == "bees"|
 |3|beekeeper|=|beeswax|"bee" == "bee"|
 |3|bee|=|beeswax|"bee" == "bee"|
+
+If you compare (in a loop) the minimal number of characters 
+(based on `Term.getWord().length()` and
+`myPrefixSize` values) and they are all the same, you will likely still need to check
+a word length, e.g., in the test of `bee` and `beekeeper` which are equal
+when the prefix size is 3, but `bee` is less than `beekeeper` when the prefix size is 4. So after the loop, if all characters compared are the same, using lengths may
+be necessary. Use the JUnite test in `TestTerm` to help ensure your
+code is more likely to be correct.
 
 ### BinarySearchLibrary firstIndex and lastIndex
 
@@ -96,7 +108,7 @@ This method meets the *performance* requirement and returns an index `i` such th
 
 At a high level, note that binary search is efficient because at each iteration of the `while` loop it reduces the effective search range (`high`-`low`) by a multiplicative factor of 2, leading to the **O(log *N*)** performance. It is also correct because of the following *loop invariant* - at the start of the loop, the target is always at an index between `low` and `high` (if it is in the list). Your algorithm will need to do this as well. However, the example code shown above `return`s as soon as it finds a match. You will need to change this so that your algorithm keeps searching to find the first or last match respectively.
 
-To do this we strongly, strongly, strongly suggest using the loop invariant explained below.
+To do this we **strongly, strongly, strongly suggest using the loop invariant explained below**.
 
 
 ### Implementing method firstIndex (and lastIndex)
@@ -109,7 +121,7 @@ Instead of using the initialization of low and high shown above, ***you should i
 
 **(low, high] is interval containing  target, if target is in the list. **
 
-Notice that this is an **open interval on the left**, in particular this means that **`list.get(low)` cannot be equal to target.** To establish this invariant before the loop executes the first time you should consider that ***the open interval `(-1,list.length()-1]` which must contain target if it is present since this interval represents every possible index in `list`.*** Since the interval is open on the left, you cannot initialize low to zero since `(0,99]` includes 99, but not zero! So for a 100-element array you'd set `low=-1` and `high=99`, so the interval `(-1,99]` ensures that if target is present, it's either `list.get(0)` or `list.get(1)` or … `list.get(99)`.
+Notice that this is an **open interval on the left**, in particular this means that **`list.get(low)` cannot be equal to target.** To establish this invariant before the loop executes the first time you should consider that ***the open interval `(-1,list.length()-1]` must contain target if it is present since this interval represents every possible index in `list`.*** Since the interval is open on the left, you cannot initialize low to zero since `(0,99]` includes 99, but not zero! So for a 100-element array you'd set `low=-1` and `high=99`, so the interval `(-1,99]` ensures that if target is present, it's either `list.get(0)` or `list.get(1)` or … `list.get(99)`.
 
 After calculating the midpoint (see reference code above), you'll need to ***re-establish the invariant by comparing the target to the middle value.*** In particular, in the while loop, if you determine (conceptually)
 
@@ -117,7 +129,11 @@ After calculating the midpoint (see reference code above), you'll need to ***re-
 
 Then you can set **low to mid** since you know that before the loop `(low,high]` was the interval and if `list[mid] < target` then `(mid,high]` still maintains the invariant.
 
-Otherwise, meaning `list[mid] >= target`, then you can set `high` to `mid` since if before the loop `(low,high]` was the interval and `list[mid] >= target`, then `(low,mid]` still maintains the invariant. Note that this is `>=`, but using a Comparator this means the value of the comparator will be greater than or equal to zero.
+Otherwise, meaning `list[mid] >= target`, then you can set `high` to `mid` since if before the loop `(low,high]` was the interval and `list[mid] >= target`, then `(low,mid]` still maintains the invariant. Note that this is `>=`, but using a Comparator this means the value of the comparator will be greater than or equal to zero. Remember that you won't
+write in code `list[mid] < target`, but rather
+```
+    comp.compare(list.get(mid),target) < 0
+```
 
 ### Loop Termination
 
@@ -129,17 +145,19 @@ since you know that `low <= high` is always true. Thus, when the loop exits, you
 
 You can determine whether to return -1 (target not present) based on the value of `high` and the value of `list.get(high)`. For example, if `high` is not a valid index, the interval is empty. ***After the loop you'll need to make one more comparison*** of `a.get(high)` with `target` to see if they are equal. ***This loop will be correct and will meet the performance bounds if you develop it using the invariant.***
 
-You'll find the **exact code you need for firstIndex** in the method `firstMatch` of the class in`BinaryBenchmark.java`. You should likely copy this code, test it, and then read the explanation for `lastIndex`.
+You'll find the **exact code you need for firstIndex** in the method `firstMatch` of the class in`BinaryBenchmark.java`. You should likely copy this code, test it, and then read the explanation for `lastIndex` below, noting the invariant, and developing it.
 
 ### Code for `lastIndex`
 
-You should develop a similar invariant and loop for the method `lastIndex` that you'll implement. In this case, the interval you'll consider is `[low,high)`, i.e., **open on the right**. Establish the invariant before the loop, and reason about how to assign to `low` or `high` depending on how the middle value compares to key. You'll initialize `low = 0` before the loop since the interval is open on the left. You'll need to think about resetting `low` or `high` based on the `Comparator` value. Since the interval is open on the right, when resetting `high` it you'll know the value being searched for cannot have index `high`. You'll need to test the actual value of the list at index `low`, if that's a valid index, the same way you checked
+You should develop a similar invariant and loop for the method `lastIndex` that you'll implement. In this case, the interval you'll consider is `[low,high)`, i.e., **open on the right**. Establish the invariant before the loop, and reason about how to assign to `low` or `high` depending on how the middle value compares to `target`. You'll initialize `low = 0` before the loop since the interval is open on the left. You'll need to think about resetting `low` or `high` based on the `Comparator` value. Since the interval is open on the right, when resetting `high` you'll know the value being searched for, `target`, cannot have index `high`. After the loop, you'll need to test the actual value of the list at index `low`, if that's a valid index, the same way you checked.
+
+
 the value at index `high` in the code for `firstIndex`.
 
 
 ### Testing BinarySearchLibrary Methods
 
-You're given two classes to help verify that your methods are correct and meet performance requirements. The JUnit tests in `TestBinarySearchLibrary` can help you verify that your methods return the correct values. The output of running `BinaryBenchmark` can help verify both ***correctness and performance requirements.*** The output using a correct `BinarySearchLibrary` class is shown below when running `BinaryBenchmark` (note,the code is actually in the `firstMatch` method you'll copy to `BinarySearchLibrary`). The values in both `index` columns should be the same: the location of the first occurrence of the target `banana`. The `scomps` column is the number of comparisons made by the slow implementation `firstIndexSlow`. The `fcomps` column is the number of comparisons made by code you'll move to `firstIndex`. You can modify to test for `lastIndex` to see if it's similar.
+You're given two classes to help verify that your methods are correct and meet performance requirements. The JUnit tests in `TestBinarySearchLibrary` can help you verify that your methods return the correct values. The output of running `BinaryBenchmark` can help verify both ***correctness and performance requirements.*** The output using a correct `BinarySearchLibrary` class is shown below when running `BinaryBenchmark.firstResults()` in `main` (note,the code is actually in the `firstMatch` method you'll use to write `BinarySearchLibrary.firstIndex`). The values in both `index` columns should be the same: the location of the first occurrence of the target `banana`. The `scomps` column is the number of comparisons made by the slow implementation `firstIndexSlow`. The `fcomps` column is the number of comparisons made by code you'll use `firstIndex`. 
 ```
     size   sdex scomps fdex fcomps
     1024    0   644     0   13
@@ -149,6 +167,9 @@ You're given two classes to help verify that your methods are correct and meet p
    16384    0   10260   0   17
    32768    0   20501   0    18
 ```
+
+There is a commented out call to `lastResults` in `BinaryBenchmark.main`. This
+tests `slowLastIndex` and the `lastIndex` you will write.
 
 ### BinarySearchAutocomplete topMatches
 
@@ -183,7 +204,7 @@ final static String AUTOCOMPLETOR_CLASS_NAME = BRUTE_AUTOCOMPLETE;
 
 ## HashListAutocomplete
 
-The declaration of the class and the instance variables you will need to add are shown in the code below. 
+The declaration of the class and the instance variables you will need to add are shown in the code below. **Be sure to add these, and initialze `myMap` in the constructor.**
 
 ```java
 public class HashListAutocomplete implements Autocompletor {
@@ -196,7 +217,8 @@ public class HashListAutocomplete implements Autocompletor {
 
 There are four methods you will need to implement, stubs of which are provided in the starter code: `initialize`, `topMatches`, and `sizeInBytes` (details below).
 
-The class should maintain a `HashMap` of _every possible prefix_ (for each term) (up to the number of characters specified by a constant `MAX_PREFIX` that you should set to 10 as shown. The key in the map is a prefix/substring. The value for each prefix key is a weight-sorted list of `Term` objects that share that prefix. The diagram below shows part of such a `HashMap`. Three prefixes are shown---the corresponding values are shown as a weight-sorted list of `Term` objects.
+The class should maintain a `HashMap` of _every possible prefix_ (for each term) (up to the number of characters specified by a constant `MAX_PREFIX` that you should set to 10 as shown. Note, this is the maximal _number
+of characters_ in a prefix. The key in the map is a prefix/substring. The value for each prefix key is a weight-sorted list of `Term` objects that share that prefix. The diagram below shows part of such a `HashMap`. Three prefixes are shown---the corresponding values are shown as a weight-sorted list of `Term` objects.
 
 |Prefix|Term Objects|
 | --   |    ----    |
@@ -212,18 +234,25 @@ You should create a constructor similar to those in the other implementations li
 
 ### HashListAutocomplete initialize method
 
-For each `Term` in `initialize`, use the first `MAX_PREFIX` substrings as a key in the map the class maintains and uses. For each prefix you'll store the `Term` objects with that prefix in an `ArrayList` that is the corresponding value for the prefix in the map.
+For each `Term` in `initialize`, use **up to** the first `MAX_PREFIX` substrings as a key in the map the class maintains and uses. For each prefix you'll store the `Term` objects with that prefix in an `ArrayList` that is the corresponding value for the prefix in the map. Note that if `MAX_PREFIX = 10`, then using
+`substring(0,MAX_PREFIX)` as well as `substring(0,0)` will ensure your code
+has up to 10 substrings -- the zero-length prefix is always included as shown
+below.
 
 ***After*** all keys and values have been entered into the map, you'll write code to sort every value in the map, that is each `ArrayList` corresponding to each prefix. You must use a `Comparator.comparing(Term::getWeight).reversed()` object to sort so that the list is maintained sorted from high to low by weight, e.g., see below, and sort using this idea for each list associated with a key in the map.
 
-While it is not required, we highly recommend updating `mySize` as you're creating the map. The
-instance variable `mySize` is a rough estimate of the number of bytes required to create the HashMap (both the String keys and the Term values in the HashMap). For each string you create, you'll need to add to `mySize` the value `BYTES_PER_CHAR * length` as the number of bytes needed. For each term you store, each string stored contributes `BYTES_PER_CHAR * length` and each double stored contributes `BYTES_PER_DOUBLE`. If you follow these instructions, then you can ignore the sizeInBytes instructions and just return `mySize`.
-
 ```java
-Collections.sort(list, Comparator.comparing(Term::getWeight).reversed())`
+Collections.sort(list, Comparator.comparing(Term::getWeight).reversed());
 ```
 
-**_Be sure that you include the empty string as a substring!_** As an example, if I initialize HashListAutocomplete with one Term ("hippopotamus", 40), then my HashMap should be 
+While it is not required, we highly recommend updating `mySize` as you're creating the map. The
+instance variable `mySize` is a rough estimate of the number of bytes required to create the HashMap (both the String keys and the Term values in the HashMap). For each string you create **as a key in the map**, you'll need to add to `mySize` the value `BYTES_PER_CHAR * length` as the number of bytes needed (note: if 
+the String is already in the map, it's not counted again). For each term you store, each string stored contributes `BYTES_PER_CHAR * length` and each double stored contributes `BYTES_PER_DOUBLE`. If you follow these instructions, then you can ignore the sizeInBytes instructions and just return `mySize`. Ideally you will
+create each `Term` once, and store references to that term in the list that's
+a value associated with each prefix key.
+
+
+**_Be sure that you include the empty string as a substring!_** As an example, if you initialize HashListAutocomplete with one Term ("hippopotamus", 40), then the HashMap should be 
 
 |Prefix|Term Objects|
 | --   |    ----    |
