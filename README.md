@@ -1,6 +1,6 @@
 # Project 5: Percolation
 
-This is the directions document for Project 5 Percolation in CompSci 201 at Duke University, Fall 2024.
+This is the directions document for Project 5 Percolation in CompSci 201 at Duke University, Fall 2025.
 
 
 **See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details. This current document provides a high-level overview of the assignment.
@@ -44,7 +44,7 @@ The percolation threshold problem is: if sites are independently set to be open 
 When N is sufficiently large, there is a threshold value `p*` (read this as p-star) such that when `p < p*` a random N-by-N grid almost never percolates, and when `p > p*`, a random N-by-N grid almost always percolates. No mathematical solution for determining the percolation threshold `p*` has yet been derived. Your task is to write a suite of computer programs to visualize the percolation process and estimate `p*` using Monte Carlo techniques. As you can see above, the percolation threshold in an NxN grid is about 0.593. The size of the grid doesn't matter as your simulations will show. 
 
 ### Helpful Videos 
-The video [linked here](https://youtu.be/l4IyjqgYAT0) helps explain the techniques you'll read about. This video may be helpful after reading the assignment, or to get grounded before reading. This video may help situate the classes you write: `PercolationDFS`, `PercolationBFS`, and `PercolationUF`. You should also view the recording from class on November 6 if you weren't there to see the `InteractivePercolationVisualizer` being used.
+The video [linked here](https://youtu.be/l4IyjqgYAT0) helps explain the techniques you'll read about. This video may be helpful after reading the assignment, or to get grounded before reading. This video may help situate the classes you write: `PercolationDFS`, `PercolationBFS`, and `PercolationUF`. 
 
 
 ### MazeDemo
@@ -61,7 +61,7 @@ You'll create three new implementations of the `IPercolate` interface that you'l
 
 1. Create class `PercolationDFS` that extends `PercolationDefault`. Implement one constructor, it simply calls `super` appropriately. You will implement one method, `@Override` the method `search` to use a Stack rather than recursion.
 2. Create class `PercolationBFS` that extends `PercolationDefault`. Implement one constructor, it simply calls `super` appropriately. You will implement one method, `@Override` the method `search` to use BFS instead of DFS. 
-3. **Challenge** Create class `PercolationUF` that implements the `IPercolate` interface. Implement a constructor and every method from the interface. Instance variables and methods are described in the [the details document](docs/details.md)
+3. **Challenge** (_15 engagement points_)Create class `PercolationUF` that implements the `IPercolate` interface. Implement a constructor and every method from the interface. Instance variables and methods are described in the [the details document](docs/details.md)
 
 For all three classes, test the implementation using the JUnit test class `TestPercolate` by changing which of the three implementations is used. You **must also test using the `InteractivePercolationVisualizer` simulating the percolation using your own click-tests.**  Do not depend only on the JUnit tests.
 
@@ -73,7 +73,7 @@ Fork and clone the program and then run the `InteractivePercolationVisualizer`. 
 
 Next, determine if it's possible to click on O(N<sup>2</sup>) squares _without_ the system percolating. Write a few sentences on how it's possible to do that, or write an argument that it's not possible. Hint: $N^2/2$ is O(N<sup>2</sup>), think about a chess board.
 
-You'll submit the answers to these questions on [a form linked here](https://forms.office.com/r/NhcwMcJvsX). You must submit by Sunday evening for engagement points.
+You'll submit the answers to these questions on [a form linked here](https://forms.office.com/r/NRd1YJnzVK). You must submit by Sunday evening, November 10, for engagement points.
 
 
 ## Part 1 `PercolationDFS`
@@ -124,17 +124,17 @@ Exception in thread "main" java.lang.StackOverflowError
 
 ## Analysis Template
 
-Use this template for submitting your analysis on Gradescope [word template here](https://courses.cs.duke.edu/compsci201/fall24/assign/p5-analyasis.docx)
+Use this template for submitting your analysis on Gradescope [word template here](https://courses.cs.duke.edu/compsci201/fall25/assign/p5-analysis.docx)
 
 Copy/paste the results for running `PercolationStats.java` for 10 trials on each `IPercolate` object (`PercolationDFS`, `PercolationBFS`, optionally `PercolationUF`) in your analysis document. 
 
-So first copy/paste data for the grid sizes shown above for all `IPercolate` classes you implement for this project. Then answer these questions using data from running `PercolationBFS` (and optionally `PercolationUF` with `QuickUWPC`).
+So, first copy/paste data for the grid sizes shown above for all `IPercolate` classes you implement for this project. Then answer these questions using data from running `PercolationBFS` (and optionally `PercolationUF` with `QuickUWPC`).
 1. How does doubling the grid size affect running time (keeping # trials fixed)? Specifically, by roughly what factor does the runtime increase each time we double the grid size?
 2. How does doubling the number of trials, e.g., to 20 (and more) affect running time? Specifically, by roughly what factor does the runtime increase each time we double the number of trials?
 3. Based on your observations of the timings with 10 trials, estimate the largest grid size you can run completely within at most 24 hours with 10 trials. Explain your reasoning.
-4. Read this brief opinion article: [Cho and Cain, _Human-centered redistricting automation in the age of AI+, Science, September 2020](https://courses.cs.duke.edu/compsci201/fall24/netid/science-abd1879.pdf) about using statistical and computational techniques similar to those used in this assignment for socio-technical problems such as congressional districting. Write a paragraph about your thoughts after reading the article regarding the relationship between computational techniques and societal applications.
+4. Read this brief opinion article: [Cho and Cain, _Human-centered redistricting automation in the age of AI+, Science, September 2020](https://courses.cs.duke.edu/compsci201/fall25/assign/science-abd1879.pdf) about using statistical and computational techniques similar to those used in this assignment for socio-technical problems such as congressional districting. Write a paragraph about your thoughts after reading the article regarding the relationship between computational techniques and societal applications. **Do not use an LLM in writing.**
 
-**After completing the analysis questions you should submit your answers as a PDF to the P6-analysis project on Gradescope.**
+**After completing the analysis questions you should submit your answers as a PDF to the P5-analysis project on Gradescope.**
 
 ## Submitting and Grading
 
@@ -150,7 +150,7 @@ For this project, the grading will be:
 | --- | --- |
 | 8 | PercolationDFS |
 | 8 | PercolationBFS |
-| 0 | PercolationUF (8 engagement/challenge) |
+| 0 | PercolationUF (12 engagement/challenge) |
 | 8 | Analysis  |
 
 # Autograder API Checker
