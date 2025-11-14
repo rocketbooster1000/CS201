@@ -1,8 +1,8 @@
-# Project 6: Huffman Coding/Compression, Fall 2024
+# Project 6: Huffman Coding/Compression, Fall 2025
 
 See the [details document](docs/details.md) for information on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the details document to understand how the classes in this project work independently and together. The details document also contains project-specific coding help. This current document provides a high-level overview of the assignment.
 
-You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and will be on P7). See the [details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill out [this form](https://forms.office.com/r/GTJWbG8Eyn) to request a pairing.
+You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and will be on P7). See the [details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill out [this form](https://forms.office.com/r/jssFrSERAD) to request a pairing.
 
 
 ## Outline 
@@ -51,7 +51,7 @@ The main takeaways here in running before implementing `HuffProcess.decompress` 
 
 ## Part 1: Implementing `HuffProcessor.decompress`
 
-You should begin programming by implementing `decompress` first before moving on to `compress`. You'll remove the code you're given intially in `HuffProcessor.decompress` and implement code to actually **decompress** as described in this section. You **must remember to close the output file** before `decompress` returns. The call `out.close()` is in the code you're given, be sure it's in the code you write as well.
+You should begin programming by implementing `decompress` first before moving on to `compress`. **You'll remove the code you're given intially** in `HuffProcessor.decompress` and implement code to actually **decompress** as described in this section. You **must remember to close the output file** before `decompress` returns. The call `out.close()` is in the code you're given, be sure it's in the code you write as well.
 
 There are four conceptual steps in decompressing a file that has been compressed using Huffman coding, you can see these
 in the [details document](docs/details.md).  
@@ -85,14 +85,7 @@ It's not easy to debug when reading/writing bits at a time. You may choose to wr
 
 **See the [appendix section in the details.md](docs/details.md) file for important information on understanding this compression algorithm.
 
-## Exceptions
-
-See the [details document](docs/details.md) for when to throw a `HuffException`. Basically, every time you call `readBits` on a `BitOutputStream` object you should check that the read operation succeeds, i.e., that the value -1 is **NOT** returned by the
-call of `readBits`. You throw a `new HuffException` with an appropriate String of where in the code the read fails.
-
 ## Analysis
-
-Use the [template linked here](https://courses.cs.duke.edu/compsci201/fall24/assign/p6-huffman-analysis.docx) to create a PDF to upload to Gradescope with answers to analysis questions.
 
 You'll submit the analysis as a PDF separate from the code in Gradescope. If you are working with a partner, you and your partner should submit a single analysis document.
 
@@ -104,7 +97,7 @@ Note that running the `HuffMainCompress` and `HuffMainDecompress` programs will 
 
 **Question 2.** Typically the number of total characters  $`N`$ is much greater than the number of unique characters, $`M`$ which is at most 256 when reading 8-bit chunks as with Huffman coding. Files are read twice when compressing: once to count/determine encodings, and once to actually write the encodings. Run your compression code on two images from the `data` folder: `oak-ridge.jpg` and `mtblanc.jpg`. In your analysis, include the time it takes to compress each of these files, what the compression ratio is: size of original/size of compressed. Do the same for the text file `hawthorne.txt` Can you make any conclusions about compression of images compared to text files? About the time to run compression on files? Discuss and justify your answers based on empirical/runtime data. 
 
-**Question 3.** When running `decompress`, each character that is decompressed requires traversing nodes in the Huffman coding tree, and there are $`N`$ such characters. Run your `decompress` code on the images you compressed in the previous question. Make some conclusions about the runtimes of compressed _images_ compared to compressed _text files_ when decompressing. Justify your answers by runtimes as you can.
+**Question 3.** When running `decompress`, each character that is decompressed requires traversing nodes in the Huffman coding tree, and there are $`N`$ such characters. Run your `decompress` code on the images you compressed in the previous question. Make some conclusions about the runtimes of compressed images compared to compressed text files when decompressing? Justify your answers by runtimes as you can.
 
 ## Submitting and Grading
 
@@ -113,5 +106,5 @@ Push your code to Git. Do this often. To submit:
 1. Submit your code on gradescope to the autograder. If you are working with a partner, refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
 2. Submit a PDF to Gradescope in the separate Analysis assignment. Be sure to mark pages for the questions as explained in the [gradescope documentation here](https://help.gradescope.com/article/ccbpppziu9-student-submit-work#submitting_a_pdf). If you are working with a partner, you should submit a single document and [add your partner to your group on gradescope](https://help.gradescope.com/article/m5qz2xsnjy-student-add-group-members).
 
-Points are awarded equally for compression and decompression. You'll get points for decompressing and compressing text and image files. These are 10 points each, for a total of 40 points possible on the code. The analysis is scored separately by TAs for a total of 9 points (3 per question).
+Points are awarded equally for compression and decompression. You'll get points for decompressing and compressing text and image files. These are 10 points each, for a total of 40 points possible on the code. The analysis is scored separately by TAs for a total of 12 points (4 per question).
 
