@@ -14,6 +14,12 @@ You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and
 - [Analysis](#analysis)
 - [Submitting and Grading](#submitting-and-grading)
 
+## Early Engagement
+
+Read this [ChatGPT dialog](https://chatgpt.com/share/69173fa7-21d8-800f-9ab2-f5979b780158) that ola had on November 14, 2025. ChatGPT responded to five prompts/questions. Create a document in which you include each of the five prompts/questions and in which you summarize ChatGPT's response in a few sentences (do not write too much, be brief but thorough). Than use the Internet or any LLM to ask some question about Huffman Coding. In your document include your question and the answer(s) you found.
+
+Submit via Gradescope before 11/25 at 11:59 for 12 engagment points (with a multiplicative factor of at least 5, e.g., 60 points).
+
 ## Project Introduction
 
 There are many techniques used to compress digital data (that is, to represent it using less memory). This assignment covers Huffman Coding, which is used everywhere from zipping a folder to jpeg and mp3 encodings. See the [details document](docs/details.md) for background on how the compression algorith was developed. **You should definitely use that document for background before programming.**
