@@ -97,6 +97,8 @@ You'll submit the analysis as a PDF separate from the code in Gradescope. If you
 
 For the analysis questions, we will let $`N`$ be the number of total characters in a file to encode, and let $`M`$ be the total number of *unique* characters in the file. Note that both refer to the *non-compressed file*. Note that $`M \leq N`$. Define the *compression ratio* of a file to be the number of bits in the original file divided by the number of bits in the compressed file.
 
+Use [this template for your analysis questions](https://courses.cs.duke.edu/compsci201/fall25/assign/p6-huffman-analysis.docx) when submitting to Gradescope.
+
 Note that running the `HuffMainCompress` and `HuffMainDecompress` programs will print information to the terminal about the number of bits and the runtime of the compress and decompress algorithms.
 
 **Question 1.** Suppose you want to compress two different files: `fileA` and `fileB`. Both have $`N`$ total characters and $`M`$ unique characters. The characters in `fileA` follow a uniform distribution, meaning each of the unique characters appears $`N/M`$ times. In `fileB`, the $`i`$'th unique character appears $`2^i`$ times (and the numbers add up to $`N`$), so some characters are much more common than others. Which file should achieve a higher compression ratio? Explain your answer. **The compression ratio is the size of the original file divided by the size of the compressed file.**
