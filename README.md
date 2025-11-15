@@ -18,7 +18,7 @@ You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and
 
 Read this [ChatGPT dialog](https://chatgpt.com/share/69173fa7-21d8-800f-9ab2-f5979b780158) that ola had on November 14, 2025. ChatGPT responded to five prompts/questions. Create a document in which you include each of the five prompts/questions and in which you summarize ChatGPT's response in a few sentences (do not write too much, be brief but thorough). Than use the Internet or any LLM to ask some question about Huffman Coding. In your document include your question and the answer(s) you found.
 
-Submit via Gradescope before 11/25 at 11:59 for 12 engagment points (with a multiplicative factor of at least 5, e.g., 60 points).
+Submit via Gradescope before 11/25 at 11:59 for 12 engagment points (with a multiplicative factor of at least 5, e.g., 60 points). Use [this template](https://courses.cs.duke.edu/compsci201/fall25/assign/P6-engage.docx) to submit to Gradescope.
 
 ## Project Introduction
 
