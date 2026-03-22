@@ -1,4 +1,4 @@
-# Details for P4 Autocomplete in Fall 2025
+# Details for P4 Autocomplete in Spring 2026
 
 Many parts of the assignment, including workflow and the classes you use and write, are part of this document.
 
@@ -20,10 +20,10 @@ The left/first was taken in March 2019, the right/second on October 9, 2020)
   <img width="384" height="345" src="p4-figures/googleSearch2.png">
 </div>
 
-The screen shot below/left is from October 2024, and  October 2025 is below/right.
+The screen shot below/left is from October 2025, and  March 2026 on the right.
 <div align="center">
-  <img width="384" height="344 "src="p4-figures/googlesearch2024.png">
   <img width="384" height="344 "src="p4-figures/googlesearch2025.png">
+  <img width="384" height="344 "src="p4-figures/googlesearch2026.png">
 </div>
 
 
@@ -144,6 +144,9 @@ If `low` and `high` differ by 1 in the interval `(low,high]`, and the list is so
 since you know that `low <= high` is always true. Thus, when the loop exits, you'll know that `low == high-1` and the interval `(low,high]` is the same as `(high-1,high]` -- **which contains a single value** -- the index whose value is `high`. 
 
 You can determine whether to return -1 (target not present) based on the value of `high` and the value of `list.get(high)`. For example, if `high` is not a valid index, the interval is empty. ***After the loop you'll need to make one more comparison*** of `a.get(high)` with `target` to see if they are equal. ***This loop will be correct and will meet the performance bounds if you develop it using the invariant.***
+
+
+### Copy/use this code!!!
 
 You'll find the **exact code you need for firstIndex** in the method `firstMatch` of the class in`BinaryBenchmark.java`. You should likely copy this code, test it, and then read the explanation for `lastIndex` below, noting the invariant, and developing it.
 

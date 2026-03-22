@@ -1,6 +1,6 @@
-# Project 4: Autocomplete
+# Project 4: Autocomplete, Spring 2026
 
-This is the directions document for Project 4 Autocomplete in CompSci 201 at Duke University, Fall 2025.
+This is the directions document for Project 4 Autocomplete in CompSci 201 at Duke University, Spring 2026.
 
 
 **See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details, this document provides a high-level overview of the assignment.
@@ -64,7 +64,7 @@ A skeleton of `HashListAutocomplete` can be found in the `HashListAutocomplete.j
 
 ## Analysis Questions and Benchmarking
 
-For a template to use when submitting to Gradescope, [use this .docx](https://courses.cs.duke.edu/compsci201/fall25/assign/p4-analysis-template.docx). There's a PDF if you replace 
+For a template to use when submitting to Gradescope, [use this .docx](https://courses.cs.duke.edu/compsci201/spring26/assign/p4-analysis-template.docx). There's a PDF if you replace 
 the `.docx` with `.pdf` in the URL.
 
 You'll submit the analysis as a PDF separate from the code in Gradescope. 
@@ -123,13 +123,6 @@ Push your code to Git. Do this often. Once you have run and tested your complete
 | 1 | API |
 | 8 | Analysis code and questions answered. UTAs will grade and comment on this |
 
-
-We will map total points you earn to scores as follows. We will record the letter grade as your grade for this assignment. For example, a score in the range of 31-26 will range from A- to A+.
-
-31-36:  A<br>
-25-30:  B<br>
-19-24:  C<br>
-12-18:  D
 
 
 
