@@ -1,6 +1,6 @@
 # Project 5: Percolation
 
-This is the directions document for Project 5 Percolation in CompSci 201 at Duke University, Fall 2025.
+This is the directions document for Project 5 Percolation in CompSci 201 at Duke University, Spring 2026.
 
 
 **See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details. This current document provides a high-level overview of the assignment.
