@@ -124,7 +124,7 @@ Exception in thread "main" java.lang.StackOverflowError
 
 ## Analysis Template
 
-Use this template for submitting your analysis on Gradescope [word template here](https://courses.cs.duke.edu/compsci201/fall25/assign/p5-analysis.docx)
+Use this template for submitting your analysis on Gradescope [word template here](https://courses.cs.duke.edu/compsci201/spring26/assign/p5-analysis.docx)
 
 Copy/paste the results for running `PercolationStats.java` for 10 trials on each `IPercolate` object (`PercolationDFS`, `PercolationBFS`, optionally `PercolationUF`) in your analysis document. 
 
