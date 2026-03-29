@@ -1,15 +1,18 @@
-# Details for P5 Percolation in Fall 2025
+# Details for P5 Percolation in Spring 2026
 
 
 Many parts of the assignment, including workflow and the classes you use and write, are part of this document.
 
 ## Starter Code and Using Git
 
-**_You should have installed all software (Java, Git, VS Code) before completing this project._** You can find the [directions for installation here](https://coursework.cs.duke.edu/201fall25/resources-201/-/blob/main/installingSoftware.md) (including workarounds for submitting without Git if needed).
+**_You should have installed all software (Java, Git, VS Code) before completing this project._** You can find 
+the [directions for installation here](https://coursework.cs.duke.edu/201spring26/resources-201/-/blob/main/installingSoftware.md) (including workarounds for submitting without Git if needed).
 
 We'll be using Git and the installation of GitLab at [coursework.cs.duke.edu](https://coursework.cs.duke.edu). All code for classwork will be kept here. Git is software used for version control, and GitLab is an online repository to store code in the cloud using Git.
 
-**[This document details the workflow](https://coursework.cs.duke.edu/201fall25/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully when working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes as explained.
+
+**[This document details the workflow](https://coursework.cs.duke.edu/201spring26/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.**  We recommend that you read and follow the directions carefully this first time working on a project! While coding, 
+we recommend that you periodically (perhaps when completing a method or small section) push your changes.
 
 
 ## Details on Git with a Partner
@@ -51,7 +54,7 @@ an explicit stack as shown in the [IterativeDFSBlobModel class](https://coursewo
 
 ## PercolationDFS
 
-You'll override the `search` method inherited from `PercolationDefault` to use a `Stack` rather than recursion in implementing a DFS approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall25/backtrack/-/blob/main/src/Blobs.java) we've seen in class, especially the [IterativeDFSBlobModel](https://coursework.cs.duke.edu/201fall25/backtrack/-/blob/main/src/IterativeDFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDFSDefault.`** 
+You'll override the `search` method inherited from `PercolationDefault` to use a `Stack` rather than recursion in implementing a DFS approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201spring26/backtrack/-/blob/main/src/BlobModel.java) we've seen in class, especially the [IterativeDFSBlobModel](https://coursework.cs.duke.edu/201spring26/backtrack/-/blob/main/src/IterativeDFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDFSDefault.`** 
 
 As an invariant, consider that **every cell on the stack should be `FULL`,** and you'll likely need to mark each `myGrid` cell as `FULL` before
 pushing onto the stack.
@@ -62,7 +65,7 @@ See below on testing using the `InteractivePercolationVisualizer` and the JUnit 
 
 ## PercolationBFS
 
-You'll override the `search` method inherited from `PercolationDefault` to use a `Queue` and a breadth-first-search (BFS) approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall25/backtrack/-/blob/main/src/Blobs.java) we've seen in class, especially the [BFSBlobModel](https://coursework.cs.duke.edu/201fall25/backtrack/-/blob/main/src/BlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDefault.`** 
+You'll override the `search` method inherited from `PercolationDefault` to use a `Queue` and a breadth-first-search (BFS) approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201spring26/backtrack/-/blob/main/src/BlobModel.java) we've seen in class, especially the [BFSBlobModel](https://coursework.cs.duke.edu/201spring26/backtrack/-/blob/main/src/BFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDefault.`** 
 
 See below on testing using the `InteractivePercolationVisualizer` and the JUnit testing class `TestPercolation` to test.
 
