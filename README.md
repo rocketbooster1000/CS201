@@ -1,8 +1,13 @@
-# Project 6: Huffman Coding/Compression, Fall 2025
+# Project 6: Huffman Coding/Compression, Spring 2026
+
+Welcome to P6!
+
+You'll read this intro doc first to understand the background info necessary to complete this assignment. Once you've read this doc, navigate to the [details document](docs/details.md) for more information on the technical aspects on the projects. It covers information on using Git (with a partner), starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below.
+
 
 See the [details document](docs/details.md) for information on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the details document to understand how the classes in this project work independently and together. The details document also contains project-specific coding help. This current document provides a high-level overview of the assignment.
 
-You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and will be on P7). See the [details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill out [this form](https://forms.office.com/r/jssFrSERAD) to request a pairing.
+You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and will be on P7). See the [details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill out [this form](https://forms.office.com/r/3beViKT3Pz) to request a pairing.
 
 
 ## Outline 
@@ -18,7 +23,7 @@ You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and
 
 Read this [ChatGPT dialog](https://chatgpt.com/share/69173fa7-21d8-800f-9ab2-f5979b780158) that ola had on November 14, 2025. ChatGPT responded to five prompts/questions. Create a document in which you include each of the five prompts/questions and in which you summarize ChatGPT's response in a few sentences (do not write too much, be brief but thorough). Than use the Internet or any LLM to ask some question about Huffman Coding. In your document include your question and the answer(s) you found.
 
-Submit via Gradescope before 11/25 at 11:59 for 12 engagment points (with a multiplicative factor of at least 5, e.g., 60 points). Use [this template](https://courses.cs.duke.edu/compsci201/fall25/assign/P6-engage.docx) to submit to Gradescope.
+Submit via Gradescope before 11/25 at 11:59 for 12 engagment points (with a multiplicative factor of at least 5, e.g., 60 points). Use [this template](https://courses.cs.duke.edu/compsci201/spring26/assign/P6-engage.docx) to submit to Gradescope.
 
 ## Project Introduction
 
