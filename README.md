@@ -8,15 +8,6 @@ You'll read this intro doc first to understand the background info necessary to 
 You are STRONGLY encouraged to work with a partner on P6! (as you were on P5 and will be on P7). See the [details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill out [this form](https://forms.office.com/r/3beViKT3Pz) to request a pairing.
 
 
-## Outline 
-
-- [Project Introduction](#project-introduction)
-- [Part 0: Understanding and Running Starter Code](#part-0-understanding-and-running-starter-code)
-- [Part 1: Implementing `HuffProcessor.decompress`](#part-1-implementing-huffprocessordecompress)
-- [Part 2: Implementing `HuffProcessor.compress`](#part-2-implementing-huffprocessorcompress)
-- [Analysis](#analysis)
-- [Submitting and Grading](#submitting-and-grading)
-
 ## Early Engagement
 
 Read this [ChatGPT dialog](https://chatgpt.com/share/69173fa7-21d8-800f-9ab2-f5979b780158) that ola had on November 14, 2025. ChatGPT responded to five prompts/questions. Create a document in which you include each of the five prompts/questions and in which you summarize ChatGPT's response in a few sentences (do not write too much, be brief but thorough). Than use the Internet or any LLM to ask some question about Huffman Coding. In your document include your question and the answer(s) you found.
