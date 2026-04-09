@@ -84,7 +84,7 @@ If the files are the same _nothing is printed_. If the files are different there
 
 # Part 0: Understanding and Running Starter Code
 
-Once you understand the Huffman coding algorithm, you should review this section to understand the organization of the starter code. For details on the `BitInputStream` and `BitOutputStream` classes, see [the details document](docs/details.md).
+Once you understand the Huffman coding algorithm, you should review this section to understand the organization of the starter code. For details on the `BitInputStream` and `BitOutputStream` classes, use the information in this document.
 
 
 ## Running Starter Code (with incomplete `HuffProcessor.decompress`)
