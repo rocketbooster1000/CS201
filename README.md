@@ -22,6 +22,9 @@ When you've read the description of the algorithm and data structures used you'l
 
 ### Post-reading/pre-coding self-assessment questions
 
+You should be thinking about these questions before, during, and especially after writing your code to check your understanding:
+
+
 1. Why are two passes over the input file to be compressed required when creating a compressed version of the input file?
 2. What aspects of creating the Huffman tree from counts account for that process being a greedy algorithm?
 3. At a high-level, how is the tree used to create 8-bit char/chunk encodings?
