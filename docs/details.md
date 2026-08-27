@@ -119,7 +119,7 @@ We recommend using the code found below as a base/basis for your decompress meth
 
 
 <div align="center">
-  <img width="837" height="254" src="p6-figures/decompress.png">
+  <img width="837" height="254" src="../p6-figures/decompress.png">
 </div>
 
 To understand this in more detail, please review the explanation in the [Huffman coding writeup](https://www2.cs.duke.edu/csed/poop/huff/info/) -- in particular you'll need to know how the tree was written to write code that reads the tree back.
@@ -155,7 +155,7 @@ For example, the tree below corresponds to the bit sequence `0001X1Y01Z1W01A1B`,
 ### Example Tree
 
 <div align="center">
-  <img width="291" height="213" src="p6-figures/huffheadtreeNODES.png">
+  <img width="291" height="213" src="../p6-figures/huffheadtreeNODES.png">
 </div>
 
 
@@ -214,7 +214,7 @@ There are five basic steps to compress a file that can then be decompressed usin
 You won't need to throw exceptions for the steps outlined. A brief description of each step follows. More details can be found in the explanation of the Huffman algorithm in the [Huffman coding writeup](https://www.cs.duke.edu/csed/poop/huff/info/).
 
 <div align="center">
-  <img width="600" height="180" src="p6-figures/compresscode.png">
+  <img width="600" height="180" src="../p6-figures/compresscode.png">
 </div>
 
 ## Determining Frequencies (private int[] getCounts)
@@ -316,7 +316,7 @@ Points are awarded equally for compression and decompression. You'll get points 
 A 9-bit sequence represents a "character"/chunk stored in each leaf. This character/chunk, actually a value between 0-255, will be written to the output stream when uncompressing. One leaf stores PSEUDO_EOF, this won't be printed during uncompression, but will stop the process of reading bits.
 
 <div align="center">
-  <img width="291" height="213" src="p6-figures/huffheadtreeNODES.png">
+  <img width="291" height="213" src="../p6-figures/huffheadtreeNODES.png">
 </div>
 
 When you read the first 0, you know it's an internal node (it's a 0), you'll create an internall `HuffNode` node, and recursively read the left and right subtrees. The left subtree call will read the bits 001X1Y01Z1W as the left subtree of the root and the right subtree recursive call will read  01A1B as the right subtree. Note that in the bit-sequence representing the tree, a single bit of 0 and 1 differentiates INTERNAL nodes from LEAF nodes, not the left/right branch taken in uncompressing -- that comes later. The internal node that's the root of the left subtree of the overall root has its own left subtree of 01X1Y and a right subtree of 01Z1W. When you read the single 1-bit, your code will need to read 9-bits to obtain the value stored in the leaf.
