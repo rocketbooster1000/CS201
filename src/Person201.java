@@ -25,6 +25,10 @@ public class Person201 {
     }
 
     // TODO add default constructor
+
+    public Person201() {
+        this("Owen", 35.99, 78.9, "Dain's Place");
+    }
     
     // getters, comments maybe superfluous?
     

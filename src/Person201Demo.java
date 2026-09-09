@@ -12,9 +12,12 @@ public class Person201Demo {
     public static void main(String[] args) {
         Person201 a = new Person201("claire",37.8044,-122.2712,"Vin Rouge");
         Person201 b = new Person201("ricardo",-1.2921, 36.8219,"Elmo's Diner");
-        Person201 c = new Person201("julie",40.7081,-73.9571,"Alpaca");
+        // Person201 c = new Person201("julie",40.7081,-73.9571,"Alpaca");
+        Person201 c = new Person201();
+        Person201 s = new Person201("Aphe", 36.0157, -78.9183, "Monuts");
 
-        Person201[] data = {a,b,c};
+
+        Person201[] data = {a,b,c,s};
 
         for(Person201 p : data) {
             System.out.println(p);

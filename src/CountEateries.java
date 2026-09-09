@@ -21,6 +21,11 @@ public class CountEateries {
      */
     public int countEateries(Person201[] people, String eatery) {
         int count = 0;
+        for (Person201 p: people) {
+            if (p.eatery().equals(eatery)) {
+                count++;
+            }
+        }
         // TODO: write code here to loop over people to count
         return count;
     }

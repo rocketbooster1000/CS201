@@ -65,7 +65,7 @@ public class PeopleDownloader {
                     }
                 }
                 catch (JsonParseException jspe) {
-                    // print json syntax issues
+                    // print json syntax issues 
                     System.err.println("**ERROR "+jspe);
                 }
             }

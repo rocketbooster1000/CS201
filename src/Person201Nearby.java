@@ -21,14 +21,32 @@ public class Person201Nearby {
 
         System.out.println("distance\tperson");
         int total = 0;
-        int threshold = 50;
-        for (Person201 p : people) {
-            double d = Person201Utilities.distance(query, p);   
-            if (d < threshold) {
-                System.out.printf("%3.2f:\t%s\n",d,p);
-                total++;
+        int threshold = 17;
+            for (Person201 p : people) {
+                double d = Person201Utilities.distance(query, p);   
+                if (d < threshold) {
+                    System.out.printf("%3.2f:\t%s\n",d,p);
+                    total++;
+                }
             }
-        }
+        // while (true) {
+        //     total = 0;
+        //     for (Person201 p : people) {
+        //         double d = Person201Utilities.distance(query, p);   
+        //         if (d < threshold) {
+        //             System.out.printf("%3.2f:\t%s\n",d,p);
+        //             total++;
+        //         }
+        //     }
+        //     if (total == 2) {
+        //         break;
+        //     } else if (total > 2) {
+        //         threshold--;
+        //     } else {
+        //         threshold++;
+        //     }
+        // }
+        // System.out.println("Threshold minus one: " + threshold);
         System.out.println("\nFound " + total + " people near " + query.name() + "\n");
     }
 }
