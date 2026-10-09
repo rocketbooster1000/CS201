@@ -14,6 +14,8 @@ public class ClassifyingModel extends BaseMarkovModel{
     private HashSet<String> myVocabulary;
     private boolean myUseMemo;
 
+    private HashMap<List<String>, Map<String, Integer>> myCache;
+
     public ClassifyingModel(int size) {
         this(size,false);
     }
@@ -23,16 +25,30 @@ public class ClassifyingModel extends BaseMarkovModel{
         myUseMemo = memoize;
         myMap = new HashMap<>();
         myVocabulary = new HashSet<>();
+        myCache = new HashMap<>();
     }
 
     private int tokenInContextCount(List<String> context, String token) {
         if (! myMap.containsKey(context)) return 0;
+
+        if (myUseMemo) {
+            Map<String, Integer> counts = myCache.get(context);
+            if (counts != null && counts.containsKey(token) 
+                ) {
+                    return counts.get(token);
+            }
+        }
         
         int count = 0;
         for(String s : myMap.get(context)) {
             if (s.equals(token)) {
                 count += 1;
             }
+        }
+
+        if (myUseMemo) {
+            myCache.putIfAbsent(context, new HashMap<>());
+            myCache.get(context).put(token, count);
         }
         return count;
     }
@@ -100,31 +116,55 @@ public class ClassifyingModel extends BaseMarkovModel{
 
         for(int k=0; k < padded.size() - myModelSize; k++) {
             List<String> context = padded.subList(k, k+myModelSize);
+            int contextCount = myMap.getOrDefault(context, new ArrayList<>()).size();
             String next = padded.get(k+myModelSize);
+            int nextCount = tokenInContextCount(context, next);
+            // for (int i = 0; i < myWordSequence.size() - context.size(); i++) {
+            //     boolean found = true;
+            //     for (int j = 0; j < context.size(); j++) {
+            //         if (!myWordSequence.get(i + j).equals(context.get(j))) {
+            //             found = false;
+            //         }
+            //     }
+            //     if (found) {
+            //         contextCount++;
+            //         if (myWordSequence.get(i + context.size()).equals(next)) {
+            //             nextCount++;
+            //         }
+            //     }
+
+            // }
+
             set.add(context);
-            double prob = 0.5; // this will be replaced by appropriate calculations/values
+            // double prob = 0.5; // this will be replaced by appropriate calculations/values
+            double prob = (nextCount + smoother) / (contextCount + smoother * vocabularySize());
             probTotal += Math.log(prob);
         }
-        return probTotal;  // must be normalized
+        return probTotal / set.size();  // must be normalized
     }
 
-    @Override
-    public void processTraining(){
-        // modify instance variable to track vocabulary
-        myVocabulary.addAll(myWordSequence);
-        
-        for(int k=0; k < myWordSequence.size()-myModelSize; k++) {
-            List<String> current = myWordSequence.subList(k, k+myModelSize);
-            String next = myWordSequence.get(k+myModelSize);
+@Override
+public void processTraining(){
+    myVocabulary.addAll(myWordSequence);
 
-            // additional instance variables may need to be initialized
-            // when caching is implemented
+    for(int k=0; k < myWordSequence.size()-myModelSize; k++) {
+        List<String> current = myWordSequence.subList(k, k+myModelSize);
+        String next = myWordSequence.get(k+myModelSize);
 
+        myMap.putIfAbsent(current, new ArrayList<>());
+        myMap.get(current).add(next);
+    }
 
-            myMap.putIfAbsent(current,new ArrayList<>());
-            myMap.get(current).add(next);    
+    if (myUseMemo) {
+        for (Map.Entry<List<String>, List<String>> entry : myMap.entrySet()) {
+            Map<String, Integer> counts = new HashMap<>();
+            for (String token : entry.getValue()) {
+                counts.put(token, counts.getOrDefault(token, 0) + 1);
+            }
+            myCache.put(entry.getKey(), counts);
         }
     }
+}
 
     public int vocabularySize(){
         return myVocabulary.size();
