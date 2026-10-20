@@ -1,48 +1,48 @@
-# Details for P4 Autocomplete in Spring 2026
+# Details for P4 Autocomplete in fall 2026
 
 Many parts of the assignment, including workflow and the classes you use and write, are part of this document.
 
+You should have already read the [README](../README.md) file to get a high-level overview of the project and early engagement points. The details here are needed to explain the classes you're given, the code you'll write, and the implementation details.
+
 ## Starter Code and Using Git
 
-**_You should have installed all software (Java, Git, VS Code) before completing this project._** You can find the [directions for installation here](https://coursework.cs.duke.edu/201fall25/resources-201/-/blob/main/installingSoftware.md) (including workarounds for submitting without Git if needed).
+**_You should have installed all software (Java, Git, VS Code) before completing this project._** You can find 
+the [directions for installation here](https://coursework.cs.duke.edu/201fall26/resources-201/-/blob/main/installingSoftware.md) (including workarounds for submitting without Git if needed).
 
 We'll be using Git and the installation of GitLab at [coursework.cs.duke.edu](https://coursework.cs.duke.edu). All code for classwork will be kept here. Git is software used for version control, and GitLab is an online repository to store code in the cloud using Git.
 
-**[This document details the workflow](https://coursework.cs.duke.edu/201fall25/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully when working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes as explained.
+**[This document details the workflow](https://coursework.cs.duke.edu/201fall26/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.** We recommend that you read and follow the directions carefully this first time working on a project! While coding, we recommend that you periodically (perhaps when completing a method or small section) push your changes.
 
-## Project Background and Concepts
+## Overview: What to Do
 
-Autocomplete is an algorithm used in many modern software applications. In all of these applications, the user types text and the application suggests possible completions for that text as shown in the example images below taken from google search.
+For details, see the [details document](docs/details.md) -- you'll find a high-level overview here. To complete the assignment you'll do the following, roughly in the order shown.
 
-The left/first was taken in March 2019, the right/second on October 9, 2020)
+1. Run `AutocompleteMain` using `BruteAutoComplete` (complete in the starter code) to see how the autocomplete application works. 
+2. Implement the `compare` method in the `PrefixComparator` class that is used in the `BinarySearchAutocomplete` class. Test (JUnit) with `TestTerm`.
+3. Implement two methods in `BinarySearchLibrary`: `firstIndex` and `lastIndex`, both of which will use the `PrefixComparator` you completed in the previous step. Test with `TestBinarySearchLibrary`. **We recommend you try to finish these first three steps early**.
+4. Finish implementing `BinarySearchAutocomplete` that extends `Autocompletor` by completing the `topMatches` method. This will use the `firstIndex` and `lastIndex` methods you wrote in the previous step and the code in `BruteAutocomplete.topMatches`  as a model. Test with `TestBinarySearchAutocomplete` and running `AutocompleteMain` using `BinarySearchAutocomplete` (uncomment in lines 21-23 to change the class used).
+5. Create and implement a new class `HashListAutocomplete` that implements interface `Autocompletor`. Test by running `AutocompleteMain` using `HashListAutocomplete` (uncomment in lines 21-23 to change the class used).
+6. Run benchmarks and answer analysis questions. Submit code, analysis.
+
+
+## Part 1: Run Autocomplete Main
+
+When you fork and clone the project you'll be able to run the `main` method of `AutocompleteMain`. Doing so will launch a "GUI" (Graphical User Interface) that allows you to select a data file. The data file will determine the set of possible words to be recommended by the autocompleter application, and also includes weights for how common/popular/heavy the words are. Several such files are included along with this project. (Note: you may get an error about _Secure Coding_ in the terminal/console when running the GUI. Just ignore that.)
+
+After you select a file, the GUI will allow you to enter a term. As you type, you should see the most common/heavy   words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
+
 <div align="center">
-  <img width="384" height="344 "src="p4-figures/googleSearch.png">
-  <img width="384" height="345" src="p4-figures/googleSearch2.png">
+  <img src="p4-figures/astrachanSearch.png">
 </div>
 
-The screen shot below/left is from October 2025, and  March 2026 on the right.
-<div align="center">
-  <img width="384" height="344 "src="p4-figures/googlesearch2025.png">
-  <img width="384" height="344 "src="p4-figures/googlesearch2026.png">
-</div>
+By default, `AutocompleteMain` is using `BruteAutocomplete` to find the correct words/weights (terms) to display. You will write two additional implementations of the `Autocompleter` interface: `BinarySearchAutocomplete` and `HashListAutocomplete`. When you finish one, you can again run `AutocompleteMain` using your new implementation by changing the `AUTOCOMPLETOR_CLASS_NAME` just before the `main` method of `AutocompleteMain`. You should see the same matching terms as when `BruteAutoComplete` is used -- this serves as part of testing your code!
 
 
-Although finding terms that contain a query by searching through all possible results is possible, these applications need some way to select only the most useful terms to display (since users will likely not comb through thousands of terms, nor will obscure terms like "duke cookiemonster" be useful to most users). Thus, autocomplete algorithms not only need a way to find terms that start with or contain the prefix, but a way of determining how likely each one is to be useful to the user and displaying "good" terms first. This all needs to be done efficiently so that a user can see completions in real time.
+## Part 2: Implement the `compare` method in `PrefixComparator`
 
-In this project, you will leverage a `Comparator` in Java as well as the binary search algorithm on sorted data to implement an efficient autocompleter. You will create a second implementation based on a `HashMap`. You will then benchmark and analyze the tradeoffs of these implementations.  
+A `PrefixComparator` object is obtained by calling `PrefixComparator.getComparator` with an integer argument `r`, the size of the prefix for comparison purposes. The prefix size value is stored in the instance variable `myPrefixSize` as you'll see in the code. This class is used in `BinarySearchAutocomplete`, but not in `BruteAutocomplete`. **See the [details document](docs/details.md) for details on the class and method**.
 
-According to one study, in order to be useful the algorithm must do all this in less than 100 milliseconds (see article linked below). If it takes any longer, the user will already be inputting the next keystroke (while humans do not on average input one keystroke every 50 milliseconds, additional time is required for server communication, input delay, and other processes). Furthermore, the server must be able to run this computation for every keystroke, for every user. In this assignment, you will be implementing autocomplete using three different algorithms and data structures. Your autocomplete will be different than the industrial examples described above in two ways:
-
-1. Each term will have a predetermined, constant weight/likelihood, whereas actual autocomplete algorithms might change a term's likelihood based on previous searches.
-2. We will only consider terms which start with the user query, whereas actual autocomplete algorithms (such as the web browser example above) might consider terms which contain but do not start with the query.
-
-The article linked below describes one group's recent analysis of different data structures to implement autocomplete efficiently. You'll be implementing a version of what they call a prefix hash tree, though we'll use a prefix hash list which is more efficient when terms aren't updated dynamically.
-- https://medium.com/@prefixyteam/how-we-built-prefixy-a-scalable-prefix-search-service-for-powering-autocomplete-c20f98e2eff1
-
-### Acknowledgements
-The assignment was originally developed by Kevin Wayne and Matthew Drabick at Princeton University for their Computer Science 226 class. Former head CompSci 201 UTAs, Arun Ganesh (Trinity '17) and Austin Lu (Trinity '15) adapted the assignment for Duke with help from Jeff Forbes. Josh Hug updated the assignment and provided more of the testing framework. Owen Astrachan added the prefix-hash-list (and removed the weighted trie).
-
-## Classes and Method Details for Code 
+You can test your code with the `TestTerm` JUnit class which has several tests for the `PrefixComparator` class.
 
 ### PrefixComparator
 
@@ -76,6 +76,13 @@ a word length, e.g., in the test of `bee` and `beekeeper` which are equal
 when the prefix size is 3, but `bee` is less than `beekeeper` when the prefix size is 4. So after the loop, if all characters compared are the same, using lengths may
 be necessary. Use the JUnite test in `TestTerm` to help ensure your
 code is more likely to be correct.
+
+## Part 3: Implement `BinarySearchLibrary`
+
+The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also guarantees to find the first or last such index respectively. **Details on the methods you write are [in the details document](docs/details.md).** Thus your methods are "better" than those
+in the `java.util` class.
+
+`BinarySearchAutocomplete` will use these methods along with the `PrefixComparator` you already completed to efficiently determine the *range of possible completions of a given prefix of a word typed so far*.
 
 ### BinarySearchLibrary firstIndex and lastIndex
 
@@ -205,18 +212,21 @@ final static String AUTOCOMPLETOR_CLASS_NAME = BRUTE_AUTOCOMPLETE;
 //final static String AUTOCOMPLETOR_CLASS_NAME = HASHLIST_AUTOCOMPLETE;
 ```
 
-## HashListAutocomplete
+## Part 4: Finish Implementing `topMatches` in `BinarySearchAutocomplete`
 
-The declaration of the class and the instance variables you will need to add are shown in the code below. **Be sure to add these, and initialze `myMap` in the constructor.**
+Once you've implemented the methods in class `BinarySearchLibrary`, you'll still need to implement code for `topMatches` in the `BinarySearchAutocomplete` class -- a method required as specified in the `Autocompletor` interface. The other methods in `BinarySearchAutocomplete` are written, though two rely on the code you implemented in `BinarySearchLibrary`.
 
-```java
-public class HashListAutocomplete implements Autocompletor {
+There is a comment in the `topMatches` method indicating where you need to add more to complete the implementation. You can read below for more details on the code already written in `topMatches` that you do not need to change.
 
-    private static final int MAX_PREFIX = 10;
-    private Map<String, List<Term>> myMap;
-    private int mySize;
-}
-```
+Code in static methods `firstIndexOf` and `lastIndexOf` is written to use the API exported by `BinarySearchLibrary`. You'll see that the `Term[]` parameter to these methods is transformed to a `List<Term>` since that's the type of parameter that must be passed to `BinarySearchLibrary` methods. 
+
+You'll also see a `Term` object called `dummy` created from the `String` passed to `topMatches`. The weight for the `Term` doesn't matter since only the `String` field of the `Term` is used in `firstIndex` and `lastIndex` calls.
+
+## Part 5: Implement `HashListAutocomplete`
+
+In this part, you must write another implementation of the `Autocompletor` interface, this time from scratch. Unlike `BruteAutocomplete` and `BinarySearchAutocomplete`, this third implementation will be based on the use of a `HashMap` instead of the binary search algorithm. This class will provide an `O(1)` implementation of `topMatches` --- with a tradeoff of requiring more memory.
+
+A skeleton of `HashListAutocomplete` can be found in the `HashListAutocomplete.java` file that `implements` the `Autocompletor` interface.
 
 There are four methods you will need to implement, stubs of which are provided in the starter code: `initialize`, `topMatches`, and `sizeInBytes` (details below).
 
@@ -229,11 +239,21 @@ of characters_ in a prefix. The key in the map is a prefix/substring. The value 
 |"cho"|("chomp",40), ("chocolate",10)|
 |"cha | ("chat",50), ("champ", 30)|
 
-Details on the four specific methods you need to write are in the sections below.
 
 ### HashListAutocomplete constructor
 
 You should create a constructor similar to those in the other implementations like `BruteAutocomplete` and `BinarySearchAutocomplete`; look at those for examples. The constructor should check for invalid conditions and throws exceptions in those cases, otherwise it should simply call the `initialize()` method passing `terms` and `weights`.
+
+The declaration of the class and the instance variables you will need to add are shown in the code below. **Be sure to add these, and initialze `myMap` in the constructor.**
+
+```java
+public class HashListAutocomplete implements Autocompletor {
+
+    private static final int MAX_PREFIX = 10;
+    private Map<String, List<Term>> myMap;
+    private int mySize;
+}
+```
 
 ### HashListAutocomplete initialize method
 
@@ -289,6 +309,9 @@ List<Term> list = all.subList(0, Math.min(k, all.size()));
 You'll need to implement the required `sizeInBytes` method. This method should return an estimate of the amount of memory (in bytes) necessary to store all of the keys and values in the `HashMap`. This can be computed once the first time `sizeInBytes` is called (that is, when `mySize == 0`) and stored in the instance variable `mySize`; on subsequent calls it can just return `mySize`. You can see similar examples in the `sizeInBytes` methods of `BruteAutocomplete` and `BinarySearchAutocomplete`.
 
 Your method should account for every `Term` object and every String/key in the map. Use the implementations of `sizeInBytes` in the other `Autocomplete` classes as a model. Each string stored contributes `BYTES_PER_CHAR * length` to the bytes need. Each double stored contributes `BYTES_PER_DOUBLE`. You'll account for every `Term` stored in one of the lists in the map (each consisting of a String and a double) as well as every key (Strings) in the map.
+
+
+
 
 
 
