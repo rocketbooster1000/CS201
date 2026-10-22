@@ -35,9 +35,12 @@ According to one study, in order to be useful the algorithm must do all this in 
 The article linked below describes one group's recent analysis of different data structures to implement autocomplete efficiently. You'll be implementing a version of what they call a prefix hash tree, though we'll use a prefix hash list which is more efficient when terms aren't updated dynamically.
 - https://medium.com/@prefixyteam/how-we-built-prefixy-a-scalable-prefix-search-service-for-powering-autocomplete-c20f98e2eff1
 
+## Engagement Points
+
+Complete the questions on the [form linked here](https://forms.cloud.microsoft/r/08XWH2E6Wx) which include a short article on autocomplete as well as questions about the Prefixy medium post linked above. You can earn 10 engagement points by completing this before November 1.
+
 ### Acknowledgements
 The assignment was originally developed by Kevin Wayne and Matthew Drabick at Princeton University for their Computer Science 226 class. Former head CompSci 201 UTAs, Arun Ganesh (Trinity '17) and Austin Lu (Trinity '15) adapted the assignment for Duke with help from Jeff Forbes. Josh Hug updated the assignment and provided more of the testing framework. Owen Astrachan added the prefix-hash-list (and removed the weighted trie).
-
 
 
 
