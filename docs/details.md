@@ -1,6 +1,6 @@
-# Details for P4 Autocomplete in fall 2026
+# Details for P4 Autocomplete in Fall 2026
 
-Many parts of the assignment, including workflow and the classes you use and write, are part of this document.
+All coding aspects of the assignment, including workflow and the classes you use and write, are part of this document.
 
 You should have already read the [README](../README.md) file to get a high-level overview of the project and early engagement points. The details here are needed to explain the classes you're given, the code you'll write, and the implementation details.
 
@@ -15,12 +15,12 @@ We'll be using Git and the installation of GitLab at [coursework.cs.duke.edu](ht
 
 ## Overview: What to Do
 
-For details, see the [details document](docs/details.md) -- you'll find a high-level overview here. To complete the assignment you'll do the following, roughly in the order shown.
+To complete the assignment you'll do the following, roughly in the order shown.
 
-1. Run `AutocompleteMain` using `BruteAutoComplete` (complete in the starter code) to see how the autocomplete application works. 
+1. Run `AutocompleteMain` using `BruteAutoComplete` (as you get in the starter code) to see how the autocomplete application works. 
 2. Implement the `compare` method in the `PrefixComparator` class that is used in the `BinarySearchAutocomplete` class. Test (JUnit) with `TestTerm`.
 3. Implement two methods in `BinarySearchLibrary`: `firstIndex` and `lastIndex`, both of which will use the `PrefixComparator` you completed in the previous step. Test with `TestBinarySearchLibrary`. **We recommend you try to finish these first three steps early**.
-4. Finish implementing `BinarySearchAutocomplete` that extends `Autocompletor` by completing the `topMatches` method. This will use the `firstIndex` and `lastIndex` methods you wrote in the previous step and the code in `BruteAutocomplete.topMatches`  as a model. Test with `TestBinarySearchAutocomplete` and running `AutocompleteMain` using `BinarySearchAutocomplete` (uncomment in lines 21-23 to change the class used).
+4. Finish implementing `BinarySearchAutocomplete` that implements the `Autocompletor` interface by completing the `topMatches` method. Test with  `firstIndex` and `lastIndex` methods you wrote in the previous step and the code in `BruteAutocomplete.topMatches`  as a model. Test with `TestBinarySearchAutocomplete` and run `AutocompleteMain` using `BinarySearchAutocomplete` (uncomment in lines 21-23 to change the class used).
 5. Create and implement a new class `HashListAutocomplete` that implements interface `Autocompletor`. Test by running `AutocompleteMain` using `HashListAutocomplete` (uncomment in lines 21-23 to change the class used).
 6. Run benchmarks and answer analysis questions. Submit code, analysis.
 
@@ -29,22 +29,20 @@ For details, see the [details document](docs/details.md) -- you'll find a high-l
 
 When you fork and clone the project you'll be able to run the `main` method of `AutocompleteMain`. Doing so will launch a "GUI" (Graphical User Interface) that allows you to select a data file. The data file will determine the set of possible words to be recommended by the autocompleter application, and also includes weights for how common/popular/heavy the words are. Several such files are included along with this project. (Note: you may get an error about _Secure Coding_ in the terminal/console when running the GUI. Just ignore that.)
 
-After you select a file, the GUI will allow you to enter a term. As you type, you should see the most common/heavy   words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
+After you select a file, the GUI will allow you to enter a term. As you type, you should see the most common/heavy words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
 
 <div align="center">
   <img src="p4-figures/astrachanSearch.png">
 </div>
 
-By default, `AutocompleteMain` is using `BruteAutocomplete` to find the correct words/weights (terms) to display. You will write two additional implementations of the `Autocompleter` interface: `BinarySearchAutocomplete` and `HashListAutocomplete`. When you finish one, you can again run `AutocompleteMain` using your new implementation by changing the `AUTOCOMPLETOR_CLASS_NAME` just before the `main` method of `AutocompleteMain`. You should see the same matching terms as when `BruteAutoComplete` is used -- this serves as part of testing your code!
+By default, `AutocompleteMain` is using `BruteAutocomplete` to find the correct words/weights (terms) to display. You will write two additional implementations of the `Autocompletor` interface: `BinarySearchAutocomplete` and `HashListAutocomplete`. When you finish one, you can again run `AutocompleteMain` using your new implementation by changing the `AUTOCOMPLETOR_CLASS_NAME` just before the `main` method of `AutocompleteMain`. You should see the same matching terms as when `BruteAutoComplete` is used -- this serves as part of testing your code!
 
 
 ## Part 2: Implement the `compare` method in `PrefixComparator`
 
-A `PrefixComparator` object is obtained by calling `PrefixComparator.getComparator` with an integer argument `r`, the size of the prefix for comparison purposes. The prefix size value is stored in the instance variable `myPrefixSize` as you'll see in the code. This class is used in `BinarySearchAutocomplete`, but not in `BruteAutocomplete`. **See the [details document](docs/details.md) for details on the class and method**.
+A `PrefixComparator` object is obtained by calling `PrefixComparator.getComparator` with an integer argument `r`, the size of the prefix for comparison purposes. The prefix size value is stored in the instance variable `myPrefixSize` as you'll see in the code. This class is used in `BinarySearchAutocomplete`, but not in `BruteAutocomplete`.
 
 You can test your code with the `TestTerm` JUnit class which has several tests for the `PrefixComparator` class.
-
-### PrefixComparator
 
 Much of the framework is given to you in `PrefixComparator.java`. However, you must
 add code to the `.compare` method as described below and in the code.
@@ -74,12 +72,12 @@ If you compare (in a loop) the minimal number of characters
 `myPrefixSize` values) and they are all the same, you will likely still need to check
 a word length, e.g., in the test of `bee` and `beekeeper` which are equal
 when the prefix size is 3, but `bee` is less than `beekeeper` when the prefix size is 4. So after the loop, if all characters compared are the same, using lengths may
-be necessary. Use the JUnite test in `TestTerm` to help ensure your
+be necessary. Use the JUnit tests in `TestTerm` class to help ensure your
 code is more likely to be correct.
 
 ## Part 3: Implement `BinarySearchLibrary`
 
-The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also guarantees to find the first or last such index respectively. **Details on the methods you write are [in the details document](docs/details.md).** Thus your methods are "better" than those
+The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also guarantees to find the first or last such index respectively. Thus your methods are "better" than those
 in the `java.util` class.
 
 `BinarySearchAutocomplete` will use these methods along with the `PrefixComparator` you already completed to efficiently determine the *range of possible completions of a given prefix of a word typed so far*.
@@ -88,7 +86,7 @@ in the `java.util` class.
 
 You're given code in `BinarySearchLibrary.firstIndexSlow` that is correct, ***but does not meet performance requirements***. This slow implementation will be very slow in some situations, e.g., when a list has many equal values according to the given comparator. The code in the slow method  is **O(*N*)** where there are *N* equal values since the code could examine all the values. To meet performance criteria your code should be **O(log *N*)**, more specifically it should only need $`1 + \lceil log_2N \rceil`$ comparisons -- that is, one more than $`log_2N`$ rounded up.
 
-To get started, expand below to see an example of the standard Java API  [`Collections.binarySearch`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method that has been slightly changed to use the same parameters as `firstIndex`.
+To get started, the code below is modeled on the standard Java API  [`Collections.binarySearch`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method that has been slightly changed to use the same parameters as `firstIndex`.
 
 ```java
 public static <T> int binarySearch(List<T> list, T target,
@@ -113,7 +111,7 @@ public static <T> int binarySearch(List<T> list, T target,
 
 This method meets the *performance* requirement and returns an index `i` such that `comp.compare(list.get(i), target)==0`. However, it does *not* guarantee to return the first or last such index `i`. **Your task is to adapt this approach (outlined in the explanation below and in code you get with the project (to copy)) so that `firstIndex` and `lastIndex` return the first and last such indices respectively, while maintaining the same performance guarantee.** 
 
-At a high level, note that binary search is efficient because at each iteration of the `while` loop it reduces the effective search range (`high`-`low`) by a multiplicative factor of 2, leading to the **O(log *N*)** performance. It is also correct because of the following *loop invariant* - at the start of the loop, the target is always at an index between `low` and `high` (if it is in the list). Your algorithm will need to do this as well. However, the example code shown above `return`s as soon as it finds a match. You will need to change this so that your algorithm keeps searching to find the first or last match respectively.
+At a high level, note that binary search is efficient because at each iteration of the `while` loop it reduces the effective search range (`high`-`low`) by a factor of 2, leading to the **O(log *N*)** performance. It is also correct because of the following *loop invariant* - at the start of the loop, the target is always at an index between `low` and `high` (if it is in the list). Your algorithm will need to do this as well. However, the example code shown above `return`s an index as soon as it finds a match. You will need to change this so that your algorithm keeps searching to find the first or last match respectively.
 
 To do this we **strongly, strongly, strongly suggest using the loop invariant explained below**.
 
@@ -121,6 +119,10 @@ To do this we **strongly, strongly, strongly suggest using the loop invariant ex
 ### Implementing method firstIndex (and lastIndex)
 
 In many implementations of binary search, variables `low` and `high` are used to bracket/delimit the range of possible values for the search target -- as is the case in the code shown above. 
+
+### Copy/use this code!!!
+
+You'll find the **exact code you need for firstIndex** in the method `firstMatch` of the class in`BinaryBenchmark.java`. You should likely copy this code, test it, and then read the explanation for `lastIndex` below, noting the invariant, and developing it. The invariant for `firstIndex` is explained first. 
 
 ### Invariant for `firstIndex`
 
@@ -152,10 +154,6 @@ since you know that `low <= high` is always true. Thus, when the loop exits, you
 
 You can determine whether to return -1 (target not present) based on the value of `high` and the value of `list.get(high)`. For example, if `high` is not a valid index, the interval is empty. ***After the loop you'll need to make one more comparison*** of `a.get(high)` with `target` to see if they are equal. ***This loop will be correct and will meet the performance bounds if you develop it using the invariant.***
 
-
-### Copy/use this code!!!
-
-You'll find the **exact code you need for firstIndex** in the method `firstMatch` of the class in`BinaryBenchmark.java`. You should likely copy this code, test it, and then read the explanation for `lastIndex` below, noting the invariant, and developing it.
 
 ### Code for `lastIndex`
 
@@ -312,10 +310,9 @@ Your method should account for every `Term` object and every String/key in the m
 
 ## Analysis Questions and Benchmarking
 
-For a template to use when submitting to Gradescope, [use this .docx](https://courses.cs.duke.edu/compsci201/spring26/assign/p4-analysis-template.docx). There's a PDF if you replace 
-the `.docx` with `.pdf` in the URL.
+For a template to use when submitting to Gradescope, [use this .docx](https://coursework.cs.duke.edu/201fall26/p4-autocomplete/-/blob/main/docs/p4-analysis-template.docx).
 
-You'll submit the analysis as a PDF separate from the code in Gradescope. 
+You'll submit the analysis as a PDF separate from the code in Gradescope. **Be sure to label your pages appropriately for each analysis question.**
 
 **Question 1.** Copy/Paste the results of when you run benchmarking code in `BenchmarkForAutoComplete`. In that class code look at the instance variables for `BenchmarkForAutocomplete` and uncomment the two other implementation names so that `String[] myCompletorNames` has all three Strings: `"BruteAutocomplete"`, `"BinarySearchAutocomplete"`, and `"HashListAutocomplete"` (if you want to benchmark only a subset of these, perhaps because one isn't working, just leave it commented out).
 
