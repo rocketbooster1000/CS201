@@ -68,78 +68,50 @@ Here is a reference table for the `PrefixComparator` comparator.
 |3|bee|=|beeswax|"bee" == "bee"|
 
 If you compare (in a loop) the minimal number of characters 
-(based on `Term.getWord().length()` and
-`myPrefixSize` values) and they are all the same, you will likely still need to check
+(based on `Term.getWord().length()` values and the
+`myPrefixSize` value) and the characters are all the same, you will still need to check
 a word length, e.g., in the test of `bee` and `beekeeper` which are equal
-when the prefix size is 3, but `bee` is less than `beekeeper` when the prefix size is 4. So after the loop, if all characters compared are the same, using lengths may
-be necessary. Use the JUnit tests in `TestTerm` class to help ensure your
+when the prefix size is 3, but `bee` is less than `beekeeper` when the prefix size is 4. So after the loop, if all characters compared are the same, using lengths will be necessary. Use the JUnit tests in `TestTerm` class to help ensure your
 code is more likely to be correct.
 
 ## Part 3: Implement `BinarySearchLibrary`
 
-The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also guarantees to find the first or last such index respectively. Thus your methods are "better" than those
+The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also **guarantees to find the first or last such index, respectively.** Thus your methods are "better" than those
 in the `java.util` class.
 
 `BinarySearchAutocomplete` will use these methods along with the `PrefixComparator` you already completed to efficiently determine the *range of possible completions of a given prefix of a word typed so far*.
 
 ### BinarySearchLibrary firstIndex and lastIndex
 
-You're given code in `BinarySearchLibrary.firstIndexSlow` that is correct, ***but does not meet performance requirements***. This slow implementation will be very slow in some situations, e.g., when a list has many equal values according to the given comparator. The code in the slow method  is **O(*N*)** where there are *N* equal values since the code could examine all the values. To meet performance criteria your code should be **O(log *N*)**, more specifically it should only need $`1 + \lceil log_2N \rceil`$ comparisons -- that is, one more than $`log_2N`$ rounded up.
+You're given code in `BinarySearchLibrary.firstIndexSlow` and a corresponding `lastIndexSlow` that is correct, ***but does not meet performance requirements***. This slow implementation will be very slow in some situations, e.g., when a list has many equal values according to the given comparator. The code in the slow method  is **O(*N*)** where there are *N* equal values since the code could examine all the values. To meet performance criteria your code should be **O(log *N*)**, more specifically it should only need $`1 + \lceil log_2N \rceil`$ comparisons -- that is, one more than $`log_2N`$ rounded up.
 
-To get started, the code below is modeled on the standard Java API  [`Collections.binarySearch`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method that has been slightly changed to use the same parameters as `firstIndex`.
+You will find code for binary search in the `BinaryBenchmark.java` file in method `bsearch` that mirrors the standard code for binary search found online: it is $`log_2N`$ but it does *NOT* return the first matching index -- that is this method meets the *performance* requirement and returns an index `i` such that `comp.compare(list.get(i), target)==0`. However, it does *not* guarantee to return the first or last such index `i`. **Your task is to adapt this approach (outlined in the explanation below and in code you get with the project (to copy)) so that `firstIndex` and `lastIndex` return the first and last such indices respectively, while maintaining the same performance guarantee.** 
 
-```java
-public static <T> int binarySearch(List<T> list, T target,
-                                   Comparator<T> comp) {
-    int low = 0;
-    int high = list.size()-1;
-    while (low <= high) {
-        int mid = (low + high)/2;
-        T midval = list.get(mid);
-        int cmp = comp.compare(midval,target);
-
-        if (cmp < 0)
-            low = mid + 1;
-        else if (cmp > 0)
-            high = mid - 1;
-        else
-            return mid; // target found
-     }
-     return -1;  // target not found
-}
-```
-
-This method meets the *performance* requirement and returns an index `i` such that `comp.compare(list.get(i), target)==0`. However, it does *not* guarantee to return the first or last such index `i`. **Your task is to adapt this approach (outlined in the explanation below and in code you get with the project (to copy)) so that `firstIndex` and `lastIndex` return the first and last such indices respectively, while maintaining the same performance guarantee.** 
+The code in `BinaryBenchmark.firstMatch` is **exactly** the code you need in `BinarySearchLibrary` and you can copy/paste it into the `firstIndex` method of that class. The reason you're given the code is to match it to the invariant described below so that can mirror the development in writing `lastIndex` in `BinarySearchLibrary`. 
 
 At a high level, note that binary search is efficient because at each iteration of the `while` loop it reduces the effective search range (`high`-`low`) by a factor of 2, leading to the **O(log *N*)** performance. It is also correct because of the following *loop invariant* - at the start of the loop, the target is always at an index between `low` and `high` (if it is in the list). Your algorithm will need to do this as well. However, the example code shown above `return`s an index as soon as it finds a match. You will need to change this so that your algorithm keeps searching to find the first or last match respectively.
-
-To do this we **strongly, strongly, strongly suggest using the loop invariant explained below**.
 
 
 ### Implementing method firstIndex (and lastIndex)
 
-In many implementations of binary search, variables `low` and `high` are used to bracket/delimit the range of possible values for the search target -- as is the case in the code shown above. 
-
-### Copy/use this code!!!
-
-You'll find the **exact code you need for firstIndex** in the method `firstMatch` of the class in`BinaryBenchmark.java`. You should likely copy this code, test it, and then read the explanation for `lastIndex` below, noting the invariant, and developing it. The invariant for `firstIndex` is explained first. 
+In many implementations of binary search, variables `low` and `high` are used to bracket/delimit the range of possible values for the search target -- as is the case in the code shown in `BinaryBenchark.bsearch`. 
 
 ### Invariant for `firstIndex`
 
-Instead of using the initialization of low and high shown above, ***you should initialize these values to establish the following loop invariant*** -- an expression that will be true every time the loop test is evaluated, that is both before the loop executes the first time and at the end of every loop iteration.
+As seen in `BinaryBenchmark.firstMatch` ***you should initialize the values of `low` and `high` to establish the following loop invariant*** -- an expression that will be true every time the loop test is evaluated, that is both before the loop executes the first time and at the end of every loop iteration.
 
 **(low, high] is interval containing  target, if target is in the list. **
 
 Notice that this is an **open interval on the left**, in particular this means that **`list.get(low)` cannot be equal to target.** To establish this invariant before the loop executes the first time you should consider that ***the open interval `(-1,list.length()-1]` must contain target if it is present since this interval represents every possible index in `list`.*** Since the interval is open on the left, you cannot initialize low to zero since `(0,99]` includes 99, but not zero! So for a 100-element array you'd set `low=-1` and `high=99`, so the interval `(-1,99]` ensures that if target is present, it's either `list.get(0)` or `list.get(1)` or … `list.get(99)`.
 
-After calculating the midpoint (see reference code above), you'll need to ***re-establish the invariant by comparing the target to the middle value.*** In particular, in the while loop, if you determine (conceptually)
+After calculating the midpoint (`int mid = (high-low)/2 + low;`), you'll need to ***re-establish the invariant by comparing the target to the middle value.*** In particular, in the while loop, if you determine (conceptually)
 
 `list[mid] < target`
 
 Then you can set **low to mid** since you know that before the loop `(low,high]` was the interval and if `list[mid] < target` then `(mid,high]` still maintains the invariant.
 
 Otherwise, meaning `list[mid] >= target`, then you can set `high` to `mid` since if before the loop `(low,high]` was the interval and `list[mid] >= target`, then `(low,mid]` still maintains the invariant. Note that this is `>=`, but using a Comparator this means the value of the comparator will be greater than or equal to zero. Remember that you won't
-write in code `list[mid] < target`, but rather
+write the code `list[mid] < target`, but rather
 ```
     comp.compare(list.get(mid),target) < 0
 ```
@@ -157,10 +129,7 @@ You can determine whether to return -1 (target not present) based on the value o
 
 ### Code for `lastIndex`
 
-You should develop a similar invariant and loop for the method `lastIndex` that you'll implement. In this case, the interval you'll consider is `[low,high)`, i.e., **open on the right**. Establish the invariant before the loop, and reason about how to assign to `low` or `high` depending on how the middle value compares to `target`. You'll initialize `low = 0` before the loop since the interval is open on the left. You'll need to think about resetting `low` or `high` based on the `Comparator` value. Since the interval is open on the right, when resetting `high` you'll know the value being searched for, `target`, cannot have index `high`. After the loop, you'll need to test the actual value of the list at index `low`, if that's a valid index, the same way you checked.
-
-
-the value at index `high` in the code for `firstIndex`.
+You should develop a similar invariant and loop for the method `lastIndex` that you'll implement. In this case, the interval you'll consider is `[low,high)`, i.e., **open on the right**. Establish the invariant before the loop, and reason about how to assign to `low` or `high` depending on how the middle value compares to `target`. You'll initialize `low = 0` before the loop since the interval is open on the left. You'll need to think about resetting `low` or `high` based on the `Comparator` value. Since the interval is open on the right, when resetting `high` you'll know the value being searched for, `target`, cannot have index `high`. After the loop, you'll need to test the actual value of the list at index `low`, if that's a valid index, the same way you checked the value at index `high` in the code for `firstIndex`.
 
 
 ### Testing BinarySearchLibrary Methods
