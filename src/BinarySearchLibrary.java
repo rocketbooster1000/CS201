@@ -25,14 +25,39 @@ public class BinarySearchLibrary {
 			T target, Comparator<T> comp) {
 		int index = Collections.binarySearch(list, target, comp);
 
-		if (index < 0)
-			return index;
+		if (index < 0) {
+		    return -1;
+		}    
 
 		while (0 <= index && comp.compare(list.get(index), target) == 0) {
 			index -= 1;
 		}
 		return index + 1;
 	}
+    
+       /**                                                                   
+         * Return the index of the last object (greatest index)               
+         * o in parameter "equal" to target, that is                          
+         * the first object o such that comp.compare(o,target) == 0           
+         *                                                                    
+         * @param list   is list of Items being searched                      
+         * @param target is Item searched for                                 
+         * @param comp   how Items are compared for binary search             
+         * @return greatest index k such that comp.compare(list.get(k),target) == 0 
+         */
+        public static <T> int lastIndexSlow(List<T> list,
+                        T target, Comparator<T> comp) {
+                int index = Collections.binarySearch(list, target, comp);
+
+                if (index < 0) {
+                    return -1;
+		}
+
+                while (index < list.size() && comp.compare(list.get(index), target) == 0) {
+                        index += 1;
+                }
+                return index - 1;
+        }
 
 	/**
 	 * Return smallest index of target in list using comp
