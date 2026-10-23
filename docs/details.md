@@ -76,18 +76,33 @@ code is more likely to be correct.
 
 ## Part 3: Implement `BinarySearchLibrary`
 
-The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are variants on the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also **guarantees to find the first or last such index, respectively.** Thus your methods are "better" than those
+The class `BinarySearchLibrary` stores static utility methods used in the implementation of the `BinarySearchAutocomplete` class. You will need to implement two methods in particular: `firstIndex` and `lastIndex`. Both are similar to the Java API [`Collections.binarySearch(list, key, c)`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collections.html#binarySearch(java.util.List,T,java.util.Comparator)) method. The code you write, in addition to returning an index `dex` such that `c.compare(list.get(dex), key)==0`, also **guarantees to find the first or last such index, respectively.** Thus your methods are "better" than those
 in the `java.util` class.
 
 `BinarySearchAutocomplete` will use these methods along with the `PrefixComparator` you already completed to efficiently determine the *range of possible completions of a given prefix of a word typed so far*.
 
 ### BinarySearchLibrary firstIndex and lastIndex
 
-You're given code in `BinarySearchLibrary.firstIndexSlow` and a corresponding `lastIndexSlow` that is correct, ***but does not meet performance requirements***. This slow implementation will be very slow in some situations, e.g., when a list has many equal values according to the given comparator. The code in the slow method  is **O(*N*)** where there are *N* equal values since the code could examine all the values. To meet performance criteria your code should be **O(log *N*)**, more specifically it should only need $`1 + \lceil log_2N \rceil`$ comparisons -- that is, one more than $`log_2N`$ rounded up.
+You're given code in `BinarySearchLibrary.firstIndexSlow` and a corresponding `lastIndexSlow` that is correct, ***but these do not meet performance requirements***. These slow implementations will be very slow in some situations, e.g., when a list has many equal values according to the given comparator. The code in the slow method  is **O(*N*)** where there are *N* equal values since the code could examine all the values. To meet performance criteria your code should be **O(log *N*)**, more specifically it should only need $`1 + \lceil log_2N \rceil`$ comparisons -- that is, one more than $`log_2N`$ rounded up.
 
-You will find code for binary search in the `BinaryBenchmark.java` file in method `bsearch` that mirrors the standard code for binary search found online: it is $`log_2N`$ but it does *NOT* return the first matching index -- that is this method meets the *performance* requirement and returns an index `i` such that `comp.compare(list.get(i), target)==0`. However, it does *not* guarantee to return the first or last such index `i`. **Your task is to adapt this approach (outlined in the explanation below and in code you get with the project (to copy)) so that `firstIndex` and `lastIndex` return the first and last such indices respectively, while maintaining the same performance guarantee.** 
+You can see how many comparisons the slow methods make by running `BinaryBenchmark` when you clone the repository. It will print the following where the `sdex` column uses `firstIndexSlow` and the `fdex` column uses the `BinaryBenchmark.firstMatch` that implements an efficient binary search that returns the first index. The code in `BinaryBenchmark.firstMatch` is **exactly** the code you need in `BinarySearchLibrary` and you can copy/paste it into the `firstIndex` method of that class. The reason you're given the code is to match it to the invariant described below so that you can mirror the development in writing `lastIndex` in `BinarySearchLibrary`. 
+```
+        size    sdex    scomps  fdex    fcomps
+    1024        0       644     0       13
+    2048        0       1297    0       14
+    4096        0       2578    0       15
+    8192        0       5139    0       16
+   16384        0       10260   0       17
+   32768        0       20501   0       18
+   65536        0       40982   0       19
+  131072        0       81943   0       20
+  262144        0       163864  0       21
+  524288        0       327705  0       22
+ 1048576        0       655386  0       23
+```
 
-The code in `BinaryBenchmark.firstMatch` is **exactly** the code you need in `BinarySearchLibrary` and you can copy/paste it into the `firstIndex` method of that class. The reason you're given the code is to match it to the invariant described below so that can mirror the development in writing `lastIndex` in `BinarySearchLibrary`. 
+You will find code for binary search in the `BinaryBenchmark.java` file in method `bsearch` that mirrors the standard code for binary search found online: it is $`log_2N`$ but it does *NOT* return the first matching index, so `bsearch` meets the *performance* requirement and returns an index `i` such that `comp.compare(list.get(i), target)==0`. However, it does *not* guarantee to return the first or last such index `i`. **Your task is to adapt this approach (outlined in the explanation below and in code you get with the project (to copy)) so that methods`firstIndex` and `lastIndex` in `BinarySearchLibrary` return the first and last such indices respectively, while maintaining the same performance guarantee.** 
+
 
 At a high level, note that binary search is efficient because at each iteration of the `while` loop it reduces the effective search range (`high`-`low`) by a factor of 2, leading to the **O(log *N*)** performance. It is also correct because of the following *loop invariant* - at the start of the loop, the target is always at an index between `low` and `high` (if it is in the list). Your algorithm will need to do this as well. However, the example code shown above `return`s an index as soon as it finds a match. You will need to change this so that your algorithm keeps searching to find the first or last match respectively.
 
@@ -134,7 +149,8 @@ You should develop a similar invariant and loop for the method `lastIndex` that 
 
 ### Testing BinarySearchLibrary Methods
 
-You're given two classes to help verify that your methods are correct and meet performance requirements. The JUnit tests in `TestBinarySearchLibrary` can help you verify that your methods return the correct values. The output of running `BinaryBenchmark` can help verify both ***correctness and performance requirements.*** The output using a correct `BinarySearchLibrary` class is shown below when running `BinaryBenchmark.firstResults()` in `main` (note,the code is actually in the `firstMatch` method you'll use to write `BinarySearchLibrary.firstIndex`). The values in both `index` columns should be the same: the location of the first occurrence of the target `banana`. The `scomps` column is the number of comparisons made by the slow implementation `firstIndexSlow`. The `fcomps` column is the number of comparisons made by code you'll use `firstIndex`. 
+You're given two classes to help verify that your methods are correct and meet performance requirements. The JUnit tests in `TestBinarySearchLibrary` can help you verify that your methods return the correct values. The output of running `BinaryBenchmark` can help verify both ***correctness and performance requirements.*** The output is shown below when calling `BinaryBenchmark.firstResults()` in `main`. You can replace the call to `firstMatch` with `BinarySearchLibrary.firstIndex` after implementing that. The values in both `index` columns should be the same: the location of the first occurrence of the target `banana`. The columns are described above.
+
 ```
     size   sdex scomps fdex fcomps
     1024    0   644     0   13
@@ -146,7 +162,7 @@ You're given two classes to help verify that your methods are correct and meet p
 ```
 
 There is a commented out call to `lastResults` in `BinaryBenchmark.main`. This
-tests `slowLastIndex` and the `lastIndex` you will write.
+tests `slowLastIndex` and the `lastIndex` you will write. The `sdex` and `fdex` columns should be the same.
 
 ### BinarySearchAutocomplete topMatches
 
