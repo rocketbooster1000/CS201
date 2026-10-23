@@ -85,7 +85,7 @@ in the `java.util` class.
 
 You're given code in `BinarySearchLibrary.firstIndexSlow` and a corresponding `lastIndexSlow` that is correct, ***but these do not meet performance requirements***. These slow implementations will be very slow in some situations, e.g., when a list has many equal values according to the given comparator. The code in the slow method  is **O(*N*)** where there are *N* equal values since the code could examine all the values. To meet performance criteria your code should be **O(log *N*)**, more specifically it should only need $`1 + \lceil log_2N \rceil`$ comparisons -- that is, one more than $`log_2N`$ rounded up.
 
-You can see how many comparisons the slow methods make by running `BinaryBenchmark` when you clone the repository. It will print the following where the `sdex` column uses `firstIndexSlow` and the `fdex` column uses the `BinaryBenchmark.firstMatch` that implements an efficient binary search that returns the first index. The code in `BinaryBenchmark.firstMatch` is **exactly** the code you need in `BinarySearchLibrary` and you can copy/paste it into the `firstIndex` method of that class. The reason you're given the code is to match it to the invariant described below so that you can mirror the development in writing `lastIndex` in `BinarySearchLibrary`. 
+You can see how many comparisons the slow methods make by running `BinaryBenchmark` when you clone the repository. It will print the following where the `sdex` column uses `firstIndexSlow` and the `fdex` column uses the `BinaryBenchmark.firstMatch` that implements an efficient binary search that returns the first index. The code in `BinaryBenchmark.firstMatch` is **exactly** the code you need in `BinarySearchLibrary` and you should copy/paste it into the `firstIndex` method of that class. The reason you're given the code is to match it to the invariant described below so that you can mirror the development in writing `lastIndex` in `BinarySearchLibrary`. 
 ```
         size    sdex    scomps  fdex    fcomps
     1024        0       644     0       13
@@ -101,10 +101,10 @@ You can see how many comparisons the slow methods make by running `BinaryBenchma
  1048576        0       655386  0       23
 ```
 
-You will find code for binary search in the `BinaryBenchmark.java` file in method `bsearch` that mirrors the standard code for binary search found online: it is $`log_2N`$ but it does *NOT* return the first matching index, so `bsearch` meets the *performance* requirement and returns an index `i` such that `comp.compare(list.get(i), target)==0`. However, it does *not* guarantee to return the first or last such index `i`. **Your task is to adapt this approach (outlined in the explanation below and in code you get with the project (to copy)) so that methods`firstIndex` and `lastIndex` in `BinarySearchLibrary` return the first and last such indices respectively, while maintaining the same performance guarantee.** 
+You will find code for binary search in the `BinaryBenchmark.java` file in method `bsearch` that mirrors the standard code for binary search found online: it is $`log_2N`$ but it does *NOT* return the first matching index, so `bsearch` meets the *performance* requirement and returns an index `i` such that `comp.compare(list.get(i), target)==0`. However, it does *not* guarantee to return the first or last such index `i`. **Your task is to adapt this approach (outlined in the explanation below and in code you get with the project in `BinaryBenchmark.firstMatch` (to copy)) so that methods`firstIndex` and `lastIndex` in `BinarySearchLibrary` return the first and last such indices respectively, while maintaining the same performance guarantee.** 
 
 
-At a high level, note that binary search is efficient because at each iteration of the `while` loop it reduces the effective search range (`high`-`low`) by a factor of 2, leading to the **O(log *N*)** performance. It is also correct because of the following *loop invariant* - at the start of the loop, the target is always at an index between `low` and `high` (if it is in the list). Your algorithm will need to do this as well. However, the example code shown above `return`s an index as soon as it finds a match. You will need to change this so that your algorithm keeps searching to find the first or last match respectively.
+At a high level, binary search is efficient because at each iteration of the `while` loop it reduces the effective search range (`high`-`low`) by a factor of 2, leading to the **O(log *N*)** performance. It is also correct because of the following *loop invariant* - at the start of the loop, the target is always at an index between `low` and `high` (if it is in the list). Your algorithm will need to do this as well. However, the example code shown above `return`s an index as soon as it finds a match. You will need to change this so that your algorithm keeps searching to find the first or last match respectively.
 
 
 ### Implementing method firstIndex (and lastIndex)
@@ -146,27 +146,19 @@ You can determine whether to return -1 (target not present) based on the value o
 
 You should develop a similar invariant and loop for the method `lastIndex` that you'll implement. In this case, the interval you'll consider is `[low,high)`, i.e., **open on the right**. Establish the invariant before the loop, and reason about how to assign to `low` or `high` depending on how the middle value compares to `target`. You'll initialize `low = 0` before the loop since the interval is open on the left. You'll need to think about resetting `low` or `high` based on the `Comparator` value. Since the interval is open on the right, when resetting `high` you'll know the value being searched for, `target`, cannot have index `high`. After the loop, you'll need to test the actual value of the list at index `low`, if that's a valid index, the same way you checked the value at index `high` in the code for `firstIndex`.
 
-
 ### Testing BinarySearchLibrary Methods
 
-You're given two classes to help verify that your methods are correct and meet performance requirements. The JUnit tests in `TestBinarySearchLibrary` can help you verify that your methods return the correct values. The output of running `BinaryBenchmark` can help verify both ***correctness and performance requirements.*** The output is shown below when calling `BinaryBenchmark.firstResults()` in `main`. You can replace the call to `firstMatch` with `BinarySearchLibrary.firstIndex` after implementing that. The values in both `index` columns should be the same: the location of the first occurrence of the target `banana`. The columns are described above.
-
-```
-    size   sdex scomps fdex fcomps
-    1024    0   644     0   13
-    2048    0   1297    0   14
-    4096    0   2578    0   15
-    8192    0   5139    0   16
-   16384    0   10260   0   17
-   32768    0   20501   0    18
-```
+You're given two classes to help verify that your methods are correct and meet performance requirements. The JUnit tests in `TestBinarySearchLibrary` can help you verify that your methods return the correct values. The output of running `BinaryBenchmark` can help verify both ***correctness and performance requirements.*** The output was shown above when calling `BinaryBenchmark.firstResults()` in `main`. You can replace the call to `firstMatch` with `BinarySearchLibrary.firstIndex` after implementing that. 
 
 There is a commented out call to `lastResults` in `BinaryBenchmark.main`. This
-tests `slowLastIndex` and the `lastIndex` you will write. The `sdex` and `fdex` columns should be the same.
+tests `slowLastIndex` and the `lastIndex` you will write in `BinarySearchLibrary`. The `sdex` and `fdex` columns should be the same,  the number of comparisons will illustrate the logarithmic performance.
 
 ### BinarySearchAutocomplete topMatches
 
-The `topMatches` method requires that you return the weightiest `k` matches that match `prefix` that's a parameter to `topMatches` --- note that `k` is a parameter to the method as well -- in order of weight. The calls to `firstIndex` and `lastIndex` give the first and last indices of `myTerms` that match. The code you write will need to return the `k` greatest `weight` of these in order. If there are fewer than `k` matches, it should just return all of the matches in order. See below for more details on how to do this efficiently using a `PriorityQueue`. 
+
+The `topMatches` method requires that you return the weightiest `k` matches that match `prefix` that's a parameter to `topMatches` --- note that `k` is a parameter to the method as well -- in order of weight. The calls to `firstIndexOf` and `lastIndexOf` give the first and last indices of `myTerms` that match. The code you write will need to return the `k` greatest `weight` of these in order. If there are fewer than `k` matches, it should just return all of the matches in order. Code in static methods `firstIndexOf` and `lastIndexOf` is written to use the API exported by `BinarySearchLibrary`. You'll see that the `Term[]` parameter to these methods is transformed to a `List<Term>` since that's the type of parameter that must be passed to `BinarySearchLibrary` methods. 
+
+**The code you get when you fork and clone in `firstIndexOf` calls `BinarySearchLibrary.firstIndexSlow`. You should replace that call with `BinarySearchLibrary.firstIndex` when you know that works. Similarly for the method `lastIndexOf`. 
 
 The binary search in the `firstIndex` and `lastIndex` methods are both `O(log N)`. Then, if there are `M` terms that match the prefix, the simple method of finding the `M` matches, copying them to a list, sorting them in reverse weight order, and then choosing the first `k` of them will run in the total of the times given below. Using this approach will thus have complexity/performance of `O(log N + M log M)`. 
 
@@ -176,7 +168,7 @@ The binary search in the `firstIndex` and `lastIndex` methods are both `O(log N)
 |O(M log(M))|Sort all M elements that match prefix|
 |O(k)|Return list of top k matches|
 
-It's quite possible that `k < M`, and often `k` will be *much* less than `M`. Rather than sorting all `M` entries that match the prefix, you can use a size-limited priority queue **using the same idea and code that's used in** the `topMatches` method from `BruteAutocomplete`. Reference the code there for ideas. ***This is the approach you should implement.***
+It's quite possible that `k < M`, and often `k` will be *much* less than `M`. Rather than sorting all `M` entries that match the prefix, you can use a size-limited priority queue **using the same idea and code that's used in** the `topMatches` method from `BruteAutocomplete`. Reference the code there for ideas. ***This is the approach you should implement.*** The code you copy loops over all the `Term` objects in instance variable `myTerms`. **Modify this loop to only examine the `Term` objects whose indexes are between `first` and `last` since those are the only indexes that share `prefix`.**
 
 This should make `topMatches` run in `O(log N + M log k)` time instead of `O(log N + M log M)`. In benchmarking, there may not be a noticeable difference for the data files you're given for small values of `M`, though with larger values of `M` there will be a difference.
 
@@ -194,14 +186,6 @@ final static String AUTOCOMPLETOR_CLASS_NAME = BRUTE_AUTOCOMPLETE;
 //final static String AUTOCOMPLETOR_CLASS_NAME = BINARY_SEARCH_AUTOCOMPLETE;
 //final static String AUTOCOMPLETOR_CLASS_NAME = HASHLIST_AUTOCOMPLETE;
 ```
-
-## Part 4: Finish Implementing `topMatches` in `BinarySearchAutocomplete`
-
-Once you've implemented the methods in class `BinarySearchLibrary`, you'll still need to implement code for `topMatches` in the `BinarySearchAutocomplete` class -- a method required as specified in the `Autocompletor` interface. The other methods in `BinarySearchAutocomplete` are written, though two rely on the code you implemented in `BinarySearchLibrary`.
-
-There is a comment in the `topMatches` method indicating where you need to add more to complete the implementation. You can read below for more details on the code already written in `topMatches` that you do not need to change.
-
-Code in static methods `firstIndexOf` and `lastIndexOf` is written to use the API exported by `BinarySearchLibrary`. You'll see that the `Term[]` parameter to these methods is transformed to a `List<Term>` since that's the type of parameter that must be passed to `BinarySearchLibrary` methods. 
 
 You'll also see a `Term` object called `dummy` created from the `String` passed to `topMatches`. The weight for the `Term` doesn't matter since only the `String` field of the `Term` is used in `firstIndex` and `lastIndex` calls.
 
