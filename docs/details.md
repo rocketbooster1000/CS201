@@ -32,7 +32,7 @@ When you fork and clone the project you'll be able to run the `main` method of `
 After you select a file, the GUI will allow you to enter a term. As you type, you should see the most common/heavy words that complete what you have typed so far appearing. For example, if you run `AutocompleteMain` and select the file `words-333333.txt` from the data folder you should see the output below shown in the GUI window for the search query **auto**.  You *will use this same search term*, `auto` to test the other implementations you develop. **Refer back to this visual to see if your new classes and code work.**
 
 <div align="center">
-  <img src="p4-figures/astrachanSearch.png">
+  <img src="../p4-figures/astrachanSearch.png">
 </div>
 
 By default, `AutocompleteMain` is using `BruteAutocomplete` to find the correct words/weights (terms) to display. You will write two additional implementations of the `Autocompletor` interface: `BinarySearchAutocomplete` and `HashListAutocomplete`. When you finish one, you can again run `AutocompleteMain` using your new implementation by changing the `AUTOCOMPLETOR_CLASS_NAME` just before the `main` method of `AutocompleteMain`. You should see the same matching terms as when `BruteAutoComplete` is used -- this serves as part of testing your code!
