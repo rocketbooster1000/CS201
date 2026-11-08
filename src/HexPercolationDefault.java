@@ -24,6 +24,7 @@ import java.util.Arrays;
  * only the definition of adjacency differs from PercolationDefault.
  *
  * @author Owen Astrachan (helped by Claude Code given PercolationDefault)
+ * new for 201 in Fall 2026
  */
 
 public class HexPercolationDefault implements IPercolate {

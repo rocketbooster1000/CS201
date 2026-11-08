@@ -5,6 +5,7 @@
  * @author Owen Astrachan
  * @author Jeff Forbes
  * @date March 2011
+ * @date November 2026
  */
 
 public interface IUnionFind {

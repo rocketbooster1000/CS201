@@ -10,6 +10,7 @@
  * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  * 
  * @author jforbes
+ * @author Owen Astrachan
  *
  */
 

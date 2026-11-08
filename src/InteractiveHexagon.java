@@ -13,7 +13,8 @@
  *  every hexagon that shares an edge on screen is connected in the model
  *  (six neighbors per site).
  *
- * @author Owen Astrachan
+ * @author Owen Astrachan (help from Claude code)
+ * New for Fall 2026
  ******************************************************************************/
 
 import java.awt.Font;
