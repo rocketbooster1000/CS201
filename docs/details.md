@@ -43,46 +43,7 @@ If you run into a merge conflict, one thing that might be confusing is that the 
 
 The `--wait` command means that whenever `git` opens something in VS Code for you to edit, it will wait until you close that window/tab before proceeding.
 
-**Important note: The `search` method will mark an open cell as full and then proceed to mark the open cells connected to that cell as full. As a result, you should terminate the method early (return ;) if the cell is full or blocked before creating the Queue.**
 
-For this class, you'll @Override the `search` method to use
-an explicit stack as shown in the [IterativeDFSBlobModel class](https://coursework.cs.duke.edu/201fall25/backtrack/-/blob/main/src/IterativeDFSBlobModel.java) with a stack of `int[]` objects just as in that code.
-
-# Percolation Vocabulary and the Classes You Complete
-
-In a system of rectangular/square NxN grid cells, each cell is sometimes referred to as a _site_ in the assignment and in supporting material, including this background.
-- All sites start as **blocked**
-- When a site is chosen at random it is **open**
-- Open sites connected to the top row are **full**.
-- A system in which there's a full cell in the bottom row (and thus a path of full cells from top to bottom) **percolates**.
-
-Given a porous landscape with water on the surface (or oil below), under what conditions will the water be able to drain through to the bottom (or the oil to gush through to the surface)? Given a composite system composed of randomly distributed insulating and metallic materials, what fraction of the materials need to be metallic so that the composite system is an electrical conductor? Scientists have defined an abstract process known as percolation to model such situations.
-
-We model a percolation system using an N-by-N grid of sites. **Each site is either open or blocked. A full site is an open site that can be connected to an open site in the top row via a chain of neighboring (left, right, up, down) open sites.** In diagrams we color full sites blue to model water flowing from the top through the system. We say the **system percolates if there is at least one full site in the bottom row.** In other words, a system percolates if there is a path of open sites from the top row to the bottom row. For the porous substance example, the open sites correspond to empty space through which water might flow, so that a system that percolates lets water fill open sites, flowing from top to bottom.
-
-For more on percolation see the [Princeton Case Study](http://introcs.cs.princeton.edu/java/24percolation/).
-
-![An example of a percolating vs non-percolating system](./p6-figures/P6-percolates.png)
-
-## Percolation Threshold
-
-**(Rather than include this in the [the details document](docs/details.md) we include this information here. This project is a simulation).**
-
-The percolation threshold problem is: if sites are independently set to be open with probability p (and therefore blocked with probability (1 − p), what is the probability that the system percolates? In other words, in a N-by-N grid, would the system percolate if N<sup>2</sup> randomly chosen cells are opened?  When p equals 0, the system does not percolate; when p equals 1, the system percolates. The plots below show the site vacancy probability p versus the percolation probability for 20-by-20 random grid (left) and 100-by-100 random grid (right).
-
-![Threshold of percolating vs non-percolating system](./p6-figures/P6-threshold.png)
-
-When N is sufficiently large, there is a threshold value `p*` (read this as p-star) such that when `p < p*` a random N-by-N grid almost never percolates, and when `p > p*`, a random N-by-N grid almost always percolates. No mathematical solution for determining the percolation threshold `p*` has yet been derived. Your task is to write a suite of computer programs to visualize the percolation process and estimate `p*` using Monte Carlo techniques. As you can see above, the percolation threshold in an NxN grid is about 0.593. The size of the grid doesn't matter as your simulations will show. 
-
-### Helpful Videos 
-The video [linked here](https://youtu.be/l4IyjqgYAT0) helps explain the techniques you'll read about (recorded for fall 2024). This video may be helpful after reading the assignment, or to get grounded before reading. This video may help situate the classes you write: `PercolationDFS`, `PercolationBFS`, and `PercolationUF`. 
-
-
-### MazeDemo
-The program `MazeDemo.java` within the project you get (`src/MazeDemo.java`) is a model for DFS, BFS, and Union-Find.  You should run the program to reinforce your understanding of these concepts. Two videos of solving a maze using DFS and BFS, respectively, can be found links below, looking at them and the source code for `MazeDemo.java` may help in understanding how the two searches work. 
-
-- [dfs maze](https://www.youtube.com/watch?v=95igA_fWQtc)
-- [bfs maze](https://www.youtube.com/watch?v=dffMgIjfczI)
 
 # Overview: What to Do to Complete P5 Percolation
 
@@ -152,7 +113,7 @@ Each of the NxN cells is mapped to a number, and these numbers represent a cell'
 3. An `IUnionFind` object `myFinder` to store/reference the `IUnionFind` object passed to the constructor (which should be a `QuickUWPC` object in this assignment, you will see this later when you test it).
 4. Two final values for `VTOP` and `VBOTTOM`, set to `size * size` and `size * size + 1`, for example, in the constructor. All instance variables should be private as shown.
 
-<img src="p6-figures/P6-PercolationUF.png" width="400">
+<img src="../p6-figures/P6-PercolationUF.png" width="400">
 
 ### Constructor for `PercolationUF`
 Create a constructor `PercolationUF(IUnionFind finder, int size)` that will construct and initialize the NxN grid stored in the instance variable `myGrid` (where N is given by the `size` parameter). The constructor should initialize the `IUnionFind` object **of size NxN + 2** by calling `finder.initialize` appropriately and then storing this object in the appropriate instance variable which is `myFinder`.  Also initialize the remaining instance variables. This will be a total of five or six lines to initialize each of the five instance variables.
@@ -203,7 +164,7 @@ Exception in thread "main" java.lang.StackOverflowError
 
 ## Analysis Template
 
-Use this template for submitting your analysis on Gradescope [word template here](https://courses.cs.duke.edu/compsci201/spring26/assign/p5-analysis.docx)
+Use this template for submitting your analysis on Gradescope [word template here](https://courses.cs.duke.edu/compsci201/fall26/assign/p5-analysis.docx)
 
 Copy/paste the results for running `PercolationStats.java` for 10 trials on each `IPercolate` object (`PercolationDFS`, `PercolationBFS`, optionally `PercolationUF`) in your analysis document. 
 
@@ -211,7 +172,7 @@ So, first copy/paste data for the grid sizes shown above for all `IPercolate` cl
 1. How does doubling the grid size affect running time (keeping # trials fixed)? Specifically, by roughly what factor does the runtime increase each time we double the grid size?
 2. How does doubling the number of trials, e.g., to 20 (and more) affect running time? Specifically, by roughly what factor does the runtime increase each time we double the number of trials?
 3. Based on your observations of the timings with 10 trials, estimate the largest grid size you can run completely within at most 24 hours with 10 trials. Explain your reasoning.
-4. Read this brief opinion article: [Cho and Cain, _Human-centered redistricting automation in the age of AI+, Science, September 2020](https://courses.cs.duke.edu/compsci201/spring26/assign/science-abd1879.pdf) about using statistical and computational techniques similar to those used in this assignment for socio-technical problems such as congressional districting. Write a paragraph about your thoughts after reading the article regarding the relationship between computational techniques and societal applications. **Do not use an LLM in writing.**
+4. Read this brief opinion article: [Cho and Cain, _Human-centered redistricting automation in the age of AI+, Science, September 2020](https://courses.cs.duke.edu/compsci201/fall26/assign/science-abd1879.pdf) about using statistical and computational techniques similar to those used in this assignment for socio-technical problems such as congressional districting. Write a paragraph about your thoughts after reading the article regarding the relationship between computational techniques and societal applications. **Do not use an LLM in writing.**
 
 **After completing the analysis questions you should submit your answers as a PDF to the P5-analysis project on Gradescope.**
 

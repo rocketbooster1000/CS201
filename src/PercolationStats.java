@@ -15,6 +15,7 @@ public class PercolationStats {
 	
 	 private IPercolate getPercolator(int size) {
 		 return new PercolationDefault(size);
+		 //return new HexPercolationDefault(size);
 		 //return new PercolationBFS(size);
          //return new PercolationDFS(size); 
 		 //IUnionFind uf = new QuickUWPC();
@@ -61,7 +62,7 @@ public class PercolationStats {
 		PercolationStats ps = new PercolationStats();
 		int trials = 10;
 		int first = 100;
-		int last = 3200;
+		int last = 800; //3200;
 		System.out.printf("simulation data for %d trials\n",trials);
 		System.out.println("grid\tmean\tstddev\ttotal time");
 		for(int size = first; size <= last; size *= 2) {
