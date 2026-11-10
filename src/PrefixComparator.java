@@ -42,8 +42,22 @@ public class    PrefixComparator implements Comparator<Term> {
      * @return < 0 if v < w, == 0 if v == w, and > 0 if v > w
      */
     public int compare(Term v, Term w) {
-        // TODO: change this to use myPrefixSize as specified,
-        // replacing line below with loop and code
-        return v.getWord().compareTo(w.getWord());
+        String vstr = v.getWord();
+        String wstr = w.getWord();
+        for (int i = 0; i < myPrefixSize; i++) {
+            if (i > vstr.length() - 1 && i > wstr.length() - 1) {
+                return 0;
+            }
+            if (i > vstr.length() - 1) {
+                return -wstr.charAt(i);
+            }
+            if (i > wstr.length() - 1) {
+                return vstr.charAt(i);
+            }
+            if (vstr.charAt(i) != wstr.charAt(i)) {
+                return vstr.charAt(i) - wstr.charAt(i);
+            }
+        }
+        return 0;
     }
 }

@@ -55,7 +55,7 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 *         being equal. If no such index exists, return -1 instead.
 	 */
 	public static int firstIndexOf(Term[] a, Term key, Comparator<Term> comparator) {
-		int index = BinarySearchLibrary.firstIndexSlow(Arrays.asList(a), key, comparator);
+		int index = BinarySearchLibrary.firstIndex(Arrays.asList(a), key, comparator);
 		return index;
 	}
 
@@ -73,7 +73,7 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 *         being equal. If no such index exists, return -1 instead.
 	 */
 	public static int lastIndexOf(Term[] a, Term key, Comparator<Term> comparator) {
-		int index = BinarySearchLibrary.lastIndexSlow(Arrays.asList(a), key, comparator);
+		int index = BinarySearchLibrary.lastIndex(Arrays.asList(a), key, comparator);
 		return index;
 	}
 
@@ -112,11 +112,22 @@ public class BinarySearchAutocomplete implements Autocompletor {
 			return new ArrayList<>();
 		}
 
-		// TODO: write code here for assignment
-		// maintain pq of size k
+		PriorityQueue<Term> queue = new PriorityQueue<>(Comparator.comparing(Term::getWeight));
 
-		return null;
-	
+		for (int i = first; i <= last; i++) {
+			queue.add(myTerms[i]);
+			if (queue.size() > k) 
+				queue.poll();
+		}
+
+		ArrayList<Term> list = new ArrayList<>();
+
+		while (!queue.isEmpty()) {
+			list.add(queue.poll());
+		}
+
+		Collections.reverse(list);
+		return list;
 	}
 
 	@Override
