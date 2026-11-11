@@ -5,7 +5,7 @@ This is the directions document for Project 5 Percolation in CompSci 201 at Duke
 
 **See [the details document](docs/details.md) for information** on using Git, starting the project, and more details about the project including information about the classes and concepts that are outlined briefly below. You'll absolutely need to read the information in the [details document](docs/details.md) to understand how the classes in this project work independently and together. The _details_ document also contains project-specific details. This current document provides a high-level overview of the assignment.
 
-**You are STRONGLY encouraged to work with a partner on P5!** (and on P6 and P7). See [the details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. If you'd like to be paired (somewhat randomly, but you can write about yourself or a partner) then fill out this form to request a pairing (coming soon).
+**You are STRONGLY encouraged to work with a partner on P5!** (and on P6 and P7). See [the details document](docs/details.md) for information on using Git with a partner and how the workflow can proceed. Ideally you can find a partner in your discussion section. Alternatively, you can use [this form to indicate interest](https://forms.cloud.microsoft/r/usRrXFDtnX).
 
 *You can earn early engagement points as described below.*
 
@@ -32,23 +32,16 @@ For more on percolation see the [Princeton Case Study](http://introcs.cs.princet
 
 ## Percolation Threshold
 
-**(Rather than include this in the [the details document](docs/details.md) we include this information here. This project is a simulation).**
+**This project is a simulation.**
 
-The percolation threshold problem is: if sites are independently set to be open with probability p (and therefore blocked with probability (1 − p), what is the probability that the system percolates? In other words, in a N-by-N grid, would the system percolate if N<sup>2</sup> randomly chosen cells are opened?  When p equals 0, the system does not percolate; when p equals 1, the system percolates. The plots below show the site vacancy probability p versus the percolation probability for 20-by-20 random grid (left) and 100-by-100 random grid (right).
+The percolation threshold problem is: if sites are independently set to be open with probability p (and therefore blocked with probability (1 − p), what is the probability that the system percolates? In other words, in a N-by-N grid, would the system percolate if N<sup>2</sup> randomly chosen cells are opened?  When p equals 0, the system does not percolate; when p equals 1, the system percolates. The plots below show the site vacancy probability p versus the percolation probability for a 20-by-20 random grid (left) and 100-by-100 random grid (right).
 
 ![Threshold of percolating vs non-percolating system](./p6-figures/P6-threshold.png)
 
-When N is sufficiently large, there is a threshold value `p*` (read this as p-star) such that when `p < p*` a random N-by-N grid almost never percolates, and when `p > p*`, a random N-by-N grid almost always percolates. No mathematical solution for determining the percolation threshold `p*` has yet been derived. Your task is to write a suite of computer programs to visualize the percolation process and estimate `p*` using Monte Carlo techniques. As you can see above, the percolation threshold in an NxN grid is about 0.593. The size of the grid doesn't matter as your simulations will show. 
+When N is sufficiently large, there is a threshold value `p*` (read this as p-star) such that when `p < p*` a random N-by-N grid almost never percolates, and when `p > p*`, a random N-by-N grid almost always percolates. No mathematical solution for determining the percolation threshold `p*` has yet been derived. Your task is to write a suite of computer programs to visualize the percolation process and estimate `p*` using Monte Carlo techniques. As you can see above, the percolation threshold in an NxN grid is about 0.593. The size of the grid doesn't matter as your simulations will show. A hexagonal grid has a different threshold as your simulations will show.
 
 ### Helpful Videos 
-The video [linked here](https://youtu.be/l4IyjqgYAT0) helps explain the techniques you'll read about (recorded for fall 2024). This video may be helpful after reading the assignment, or to get grounded before reading. This video may help situate the classes you write: `PercolationDFS`, `PercolationBFS`, and `PercolationUF`. 
-
-
-### MazeDemo
-The program `MazeDemo.java` within the project you get (`src/MazeDemo.java`) is a model for DFS, BFS, and Union-Find.  You should run the program to reinforce your understanding of these concepts. Two videos of solving a maze using DFS and BFS, respectively, can be found links below, looking at them and the source code for `MazeDemo.java` may help in understanding how the two searches work. 
-
-- [dfs maze](https://www.youtube.com/watch?v=95igA_fWQtc)
-- [bfs maze](https://www.youtube.com/watch?v=dffMgIjfczI)
+The video [linked via this link](https://youtu.be/l4IyjqgYAT0) helps explain the techniques you'll read about (recorded for fall 2024). This video may be helpful after reading the assignment, or to get grounded before reading. This video may help situate the classes you write: `PercolationDFS`, `PercolationBFS`, and `PercolationUF`. 
 
 
 ### Acknowledgements 
@@ -56,16 +49,13 @@ This assignment originated at Princeton; thanks to Kevin Wayne from whom staff a
 
 
 
-
-
-
-## Early Engagement Points (6)
+## Early Engagement Points (8)
 
 Fork and clone the program and then run the `InteractivePercolationVisualizer`. Click the minimum number of squares until the grid percolates and record that number, call it $N$. Then determine how many different ways you can make the system percolate with only clicking $N$ squares.
 
 Next, determine if it's possible to click on O(N<sup>2</sup>) squares _without_ the system percolating. Write a few sentences on how it's possible to do that, or write an argument that it's not possible. Hint: $N^2/2$ is O(N<sup>2</sup>), think about a chess board.
 
-You'll submit the answers to these questions on [a form linked here](https://forms.cloud.microsoft/r/Tc3YkSCJnB). You must submit by **FILL THIS DATE IN**, for engagement points.
+You'll submit the answers to these questions **and more** on [the form linked here](https://forms.cloud.microsoft/r/Tc3YkSCJnB). You must submit by midnight on November 16, for engagement points.
 
 
 
