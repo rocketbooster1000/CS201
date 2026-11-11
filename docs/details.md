@@ -134,7 +134,9 @@ When a cell is marked as open, you'll write code to check each of the cell's fou
 
 ### Testing `PercolationUF`
 
-See above for testing all implementations using `InteractivePercolationVisualizer` and `TestPercolation'
+See above for testing all implementations using `InteractivePercolationVisualizer` and `TestPercolation'.
+
+Note, you will likely see so-called **backwash** when using union-find, that's when an _open_ cell on the bottom row, that's not connected to the top, is marked as _full_ because of being connected to VBOTTOM. Do *NOT* worry about this.
 
 ## Benchmarking and Analysis
 
