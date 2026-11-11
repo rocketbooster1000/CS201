@@ -53,7 +53,7 @@ You'll create three new implementations of the `IPercolate` interface that you'l
 
 1. Create class `PercolationDFS` that extends `PercolationDefault`. Implement one constructor, it simply calls `super` appropriately. You will implement one method, `@Override` the method `search` to use a Stack rather than recursion.
 2. Create class `PercolationBFS` that extends `PercolationDefault`. Implement one constructor, it simply calls `super` appropriately. You will implement one method, `@Override` the method `search` to use BFS instead of DFS. 
-3. **Challenge** (_12 engagement points_)Create class `PercolationUF` that implements the `IPercolate` interface. Implement a constructor and every method from the interface. Instance variables and methods are described in the [the details document](docs/details.md)
+3. **Challenge** (_12 engagement points_)Create class `PercolationUF` that implements the `IPercolate` interface. Implement a constructor and every method from the interface. Instance variables and methods are described below.
 
 For all three classes, test the implementation using the JUnit test class `TestPercolate` by changing which of the three implementations is used. You **must also test using the `InteractivePercolationVisualizer` simulating the percolation using your own click-tests.**  Do not depend only on the JUnit tests.
 
@@ -68,7 +68,7 @@ Your new class `PercolationDFS` will extend `PercolationDefault` and thus inheri
 2. You'll need to `@Override` `search` to use an explicit Stack for DFS rather than recursion.
 
 
-You'll override the `search` method inherited from `PercolationDefault` to use a `Stack` rather than recursion in implementing a DFS approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall26/backtrack/-/blob/main/src/BlobModel.java) we've seen in class, especially the [IterativeDFSBlobModel](https://coursework.cs.duke.edu/201fall26/backtrack/-/blob/main/src/IterativeDFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDFSDefault.`** 
+You'll override the `search` method inherited from `PercolationDefault` to use a `Stack` rather than recursion in implementing a DFS approach. Use the ideas from the [BlobCounting code](https://coursework.cs.duke.edu/201fall26/backtrack/-/blob/main/src/BlobModel.java) we've seen in class, especially the [IterativeDFSBlobModel](https://coursework.cs.duke.edu/201fall26/backtrack/-/blob/main/src/IterativeDFSBlobModel.java). The `search` method you write **will be called from the inherited `updateOnOpen` from `PercolationDefault.`** 
 
 As an invariant, consider that **every cell on the stack should be `FULL`,** and you'll likely need to mark each `myGrid` cell as `FULL` before
 pushing onto the stack.
@@ -79,7 +79,7 @@ See below on testing using the `InteractivePercolationVisualizer` and the JUnit 
 
 ## PercolationBFS
 
-This class extends the `PercolationDFSDefault` class just as `PercolationDFS` does. 
+This class extends the `PercolationDefault` class just as `PercolationDFS` does. 
 
 1. You'll need to create a `PercolationBFS` constructor with an int/size parameter that calls super to initialize the state in the parent class.
 2.  You'll need to `@Override` `search` to use a `Queue` just as you used a `Stack` for `PercolationDFS`.
@@ -90,8 +90,7 @@ See below on testing using the `InteractivePercolationVisualizer` and the JUnit 
 
 **Important note: The `search` method will mark an open cell as `FULL` and then proceed to mark the open cells connected to that cell as full. As a result, you should terminate the method early (return ;) if the cell is `FULL` or blocked before creating the Queue.**
 
-As an invariant, consider that **every cell on the Queue should be `FULL`,** and you'll likely need to mark each `myGrid` cell as `FULL` before
-adding to the queue.
+As an invariant, consider that **every cell on the Queue should be `FULL`,** and you'll likely need to mark each `myGrid` cell as `FULL` before adding to the queue.
 
 ## Testing implementations
 
@@ -170,7 +169,7 @@ Copy/paste the results for running `PercolationStats.java` for 10 trials on each
 
 So, first copy/paste data for the grid sizes shown above for all `IPercolate` classes you implement for this project. Then answer these questions using data from running `PercolationBFS` (and optionally `PercolationUF` with `QuickUWPC`).
 1. How does doubling the grid size affect running time (keeping # trials fixed)? Specifically, by roughly what factor does the runtime increase each time we double the grid size?
-2. How does doubling the number of trials, e.g., to 20 (and more) affect running time? Specifically, by roughly what factor does the runtime increase each time we double the number of trials?
+2. How does doubling the number of trials, e.g., to 20 (and more) affect running time? Specifically, by roughly what factor does the runtime increase each time we double the number of trials? Use empirical results to explain/justify.
 3. Based on your observations of the timings with 10 trials, estimate the largest grid size you can run completely within at most 24 hours with 10 trials. Explain your reasoning.
 4. Read this brief opinion article: [Cho and Cain, _Human-centered redistricting automation in the age of AI+, Science, September 2020](https://courses.cs.duke.edu/compsci201/fall26/assign/science-abd1879.pdf) about using statistical and computational techniques similar to those used in this assignment for socio-technical problems such as congressional districting. Write a paragraph about your thoughts after reading the article regarding the relationship between computational techniques and societal applications. **Do not use an LLM in writing.**
 
