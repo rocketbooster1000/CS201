@@ -162,9 +162,9 @@ public class Classifier201 {
 
     public static void main(String[] args) throws IOException {
         Classifier201 classifier = new Classifier201(1,true); 
-        String training = "data";
+        String training = "potus";
         String identify = "identify";
-        //identify = "newauthors";
+        identify = "potusidentify";
         classifier.traindAndIdentify(training,identify);
        
     }
