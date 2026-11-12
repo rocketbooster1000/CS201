@@ -1,0 +1,180 @@
+import java.util.*;
+import java.util.regex.*;
+
+import java.io.*;
+
+/**
+ * @author: ADD YOUR NAME HERE 201 STUDENT
+ * @author: Owen Astrachan for Compsci 201
+ */
+
+public class ClassifyingModel extends BaseMarkovModel{
+
+    private HashMap<List<String>, List<String>> myMap;
+    private HashSet<String> myVocabulary;
+    private boolean myUseMemo;
+
+    private HashMap<List<String>, Map<String, Integer>> myCache;
+
+    public ClassifyingModel(int size) {
+        this(size,false);
+    }
+
+    public ClassifyingModel(int size, boolean memoize) {
+        super(size);
+        myUseMemo = memoize;
+        myMap = new HashMap<>();
+        myVocabulary = new HashSet<>();
+        myCache = new HashMap<>();
+    }
+
+    private int tokenInContextCount(List<String> context, String token) {
+        if (! myMap.containsKey(context)) return 0;
+
+        if (myUseMemo) {
+            Map<String, Integer> counts = myCache.get(context);
+            if (counts != null && counts.containsKey(token) 
+                ) {
+                    return counts.get(token);
+            }
+        }
+        
+        int count = 0;
+        for(String s : myMap.get(context)) {
+            if (s.equals(token)) {
+                count += 1;
+            }
+        }
+
+        if (myUseMemo) {
+            myCache.putIfAbsent(context, new HashMap<>());
+            myCache.get(context).put(token, count);
+        }
+        return count;
+    }
+
+    /**
+     * Use regular expression to tokenize rather
+     * than split. Any alphabetic sequence followed by 
+     * punctuation. So separation can be whitespace or number
+     * for example.
+     * @return list of tokens
+     */
+
+    @Override
+    public List<String> tokenize(String text){
+        List<String> tokens = new ArrayList<>();
+        String includePunc = "[A-Za-z]+|[.,!?;:]";
+        Pattern pattern = Pattern.compile(includePunc);
+        Matcher matcher = pattern.matcher(text.toLowerCase());
+
+        while (matcher.find()) {
+            tokens.add(matcher.group());
+        }
+        return tokens;
+    }
+
+    /**
+     * Tokenize text and add <START>/<END> tags. Functionally
+     * the same as BaseMarkovModel.updateWordSequence,
+     * but that adds the padded text to an instance variable rather
+     * than returning it. So code copied here
+     * @param text to be processed
+     * @return tokenized and pre/post padded sequence of tokens
+     */
+     private List<String> createTokenizedText(String text) {
+        List<String> padded = new ArrayList<>();
+        List<String> tokens = tokenize(text);
+
+        for(int k=0; k < myModelSize; k++){
+            padded.add("<START>");
+        }
+        padded.addAll(tokens);
+        for(int k=0; k < myModelSize; k++){
+            padded.add(END);
+        }
+
+        return padded;
+    }
+
+    /**
+     * Return the log likelihood that text matches this trained model.
+     * The text will be tokenized, then each n-gram/follow in text
+     * "compared" in probabilistic way to the trained model's data.
+     * Return the log probability of a match based on this comparison.
+     * @param text is to be tokenized and matched against this model
+     * @param smoother value used for Laplace smoothing
+     * @return the normalized log probability of a match
+     */
+
+    public double calculateMatchProbability(String text, double smoother){
+        
+        List<String> padded = createTokenizedText(text);
+        HashSet<List<String>> set = new HashSet<>();
+        double probTotal = 0.0;
+
+
+        for(int k=0; k < padded.size() - myModelSize; k++) {
+            List<String> context = padded.subList(k, k+myModelSize);
+            int contextCount = myMap.getOrDefault(context, new ArrayList<>()).size();
+            String next = padded.get(k+myModelSize);
+            int nextCount = tokenInContextCount(context, next);
+            // for (int i = 0; i < myWordSequence.size() - context.size(); i++) {
+            //     boolean found = true;
+            //     for (int j = 0; j < context.size(); j++) {
+            //         if (!myWordSequence.get(i + j).equals(context.get(j))) {
+            //             found = false;
+            //         }
+            //     }
+            //     if (found) {
+            //         contextCount++;
+            //         if (myWordSequence.get(i + context.size()).equals(next)) {
+            //             nextCount++;
+            //         }
+            //     }
+
+            // }
+
+            set.add(context);
+            // double prob = 0.5; // this will be replaced by appropriate calculations/values
+            double prob = (nextCount + smoother) / (contextCount + smoother * vocabularySize());
+            probTotal += Math.log(prob);
+        }
+        return probTotal / set.size();  // must be normalized
+    }
+
+@Override
+public void processTraining(){
+    myVocabulary.addAll(myWordSequence);
+
+    for(int k=0; k < myWordSequence.size()-myModelSize; k++) {
+        List<String> current = myWordSequence.subList(k, k+myModelSize);
+        String next = myWordSequence.get(k+myModelSize);
+
+        myMap.putIfAbsent(current, new ArrayList<>());
+        myMap.get(current).add(next);
+    }
+
+    if (myUseMemo) {
+        for (Map.Entry<List<String>, List<String>> entry : myMap.entrySet()) {
+            Map<String, Integer> counts = new HashMap<>();
+            for (String token : entry.getValue()) {
+                counts.put(token, counts.getOrDefault(token, 0) + 1);
+            }
+            myCache.put(entry.getKey(), counts);
+        }
+    }
+}
+
+    public int vocabularySize(){
+        return myVocabulary.size();
+    }
+
+    public static void main(String[] args) throws IOException {
+        ClassifyingModel mm = new ClassifyingModel(3);
+        String dirName = "data/shakespeare";
+        mm.trainDirectory(dirName);
+        System.out.printf("trained model for %s, vocab size = %d, token size = %d\n",
+                          dirName,mm.vocabularySize(),mm.tokenSize());
+    }
+}
