@@ -1,0 +1,29 @@
+There's still a few things we need to do before Awarely becomes a deliverable product.
+
+First, we will continue to develop the Awarely II prototype and here's what thats going to look like.
+we plan on replacing our distance sensors with higher quality ultrasonic and radar,
+We are also redesigning our housing and mounting system to be more robust. Additionally, we're going to implement our magnetic mounting solution that Vedant mentioned earlier.
+Lastly, we are implementing more advanced software, which looks like better computer vision for pedestrian detection, as well as UI improvements.
+
+Second thing, we're in development of the awarely alert system
+I've outlined the basic components of our solution here, 
+which uses a battery powered microcontroller to buzz using a haptic controller.
+and we need to package that in a portable wristband solution
+
+After we've finished our final prototyping and development of Awarely Sense and Awarely Alert,
+ we need to ask ourselves, does awarely perform its functions and meet its objectives?
+The way we're answering that question is to evaluate our functions: how well our device detects its surroundings and alerts the operator
+and our design objectives: durability, usage time, and install time,
+by rigorous tests to see if Awarely meets our design criteria.
+
+Now, to recap,
+we were tasked to build a device that improves forklift operator awareness and reduce collisions
+to evaluate our potential solutions from last presentation, we went through pugh screening and scoring matrices, which led to us choosing a combination of cameras, sensors, and haptic wristband alerts to provide this awareness
+Our prototyping led us to our initial prototype, then the awarely 1, 
+which brought us to now, the awarely 2,
+from which we are continuing to develop by improving the housing, sensors, and wristband
+before finishing by testing awarely's functionality.
+
+With that, we’re excited to keep building Awarely and to make construction sites safer. Thank you
+
+
