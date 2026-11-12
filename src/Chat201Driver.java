@@ -26,7 +26,7 @@ public class Chat201Driver {
 	
 	public static void main(String[] args) throws IOException {
 		// Can change the training text here
-		String dirName = "data/shakespeare";
+		String dirName = "data/small";
 
 		// change code in getModel as warranted
 		BaseMarkovModel model = getModel(MODEL_ORDER);
