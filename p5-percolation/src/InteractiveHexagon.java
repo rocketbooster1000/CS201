@@ -1,5 +1,5 @@
 /******************************************************************************
- *  Compilation:  javac InteractiveHexagon.java
+ *  Compilation:  javac InteractiveHexagon.java hello 
  *  Execution:    java InteractiveHexagon N
  *  Dependencies: HexPercolationDefault.java, IPercolate.java, StdDraw.java
  *
@@ -16,7 +16,8 @@
  * @author Owen Astrachan (help from Claude code)
  * New for Fall 2026
  ******************************************************************************/
-
+// hello jason 
+// hello brandon
 import java.awt.Font;
 
 public class InteractiveHexagon {
