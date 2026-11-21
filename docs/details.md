@@ -7,9 +7,9 @@ You should have read through the [README](../README.md) document to learn about 
 
 - [Starter Code and Using Git](#starter-code-and-using-git)
 - [Details on Git with a Partner](#details-on-git-with-a-partner)
-- [`BitInputStream` and `BitOutputStream` Classes](#bitinputstream-and-bitoutputstream-classes)
-- [Details on diff via the command line interface (CLI)](#details-on-diff-via-the-command-line-interface-cli)
 - [Part 0: Understanding and Running Starter Code](#part-0-understanding-and-running-starter-code)
+- [Details on diff via the command line interface (CLI)](#details-on-diff-via-the-command-line-interface-cli)
+- [`BitInputStream` and `BitOutputStream` Classes](#bitinputstream-and-bitoutputstream-classes)
 - [Part 1: Implementing `HuffProcessor.decompress`](#part-1-implementing-huffprocessordecompress)
 - [Part 2: Implementing `HuffProcessor.compress`](#part-2-implementing-huffprocessorcompress)
 - [Analysis and Submission](#analysis--submission)
@@ -61,14 +61,24 @@ The `--wait` command means that whenever `git` opens something in VS Code for yo
 
 
 
-## `BitInputStream` and `BitOutputStream` Classes
+# Part 0: Understanding and Running Starter Code
 
-These two classes are provided to help in reading/writing bits in (un)compressed files. They extend the Java [InputStream](https://docs.oracle.com/javase/9/docs/api/java/io/InputStream.html) and [OutputStream](https://docs.oracle.com/javase/9/docs/api/java/io/OutputStream.html) classes, respectively. They function just like Scanner, except instead of reading in / writing out arbitrarily delimited “tokens”, they read/write a specified number of bits. Note that two consecutive calls to the `readBits` method will likely return different results since InputStream classes maintain an internal "cursor" or "pointer" to a spot in the stream from which to read -- and once read the bits won't be read again (unless the stream is reset).
+Once you understand the Huffman coding algorithm, you should review this section to understand the organization of the starter code. For details on the `BitInputStream` and `BitOutputStream` classes, see the section below on these classes.
 
-The only methods you will need to interact with are the following:
-1. *`int BitInputStream.readBits(int numBits)`*: This method reads from the source the specified number of bits and returns an integer. Since integers are 32-bit in Java, the parameter `numBits` must be between 1 and 32, inclusive. **It will return -1 if there are no more bits to read.**
-2. `void BitInputStream.reset()`: This method repositions the “cursor” to the beginning of the input file.
-3. `void BitOutputStream.writeBits(int numBits, int value)`: This method writes the least-significant `numBits` bits of the value to the output file.
+
+## Running Starter Code (with incomplete `HuffProcessor.decompress`)
+
+**Do this after first cloning your forked repository.**
+
+**Run `HuffMainDecompress`**. This prompts for a file to decompress, then calls `HuffProcessor.decompress`. You're given a stub version of that method; it initially ***simply copies the first file to another file***, it doesn’t actually decompress it. To make sure you know how to use this program, we recommend you run the program as you fork/cloned it and as described below.
+
+Choose `mystery.jpg.hf` from the data folder to decompress (the `.hf` suffix indicates this has been compressed by a working `HuffProcessor.compress`). When prompted with a name for the file to save, use the default name the program supplies with a  `UHF prefix`, i.e., save with the name `UFH-mystery.jpg (that prefix is the default).  
+
+Then run `diff` on the command line/terminal [see details below](#details-on-diff-via-the-command-line-interface-cli) for information on using `diff`). Use diff to compare two files: the original, `mystery.jpg.hf` and the uncompressed version: `UHF-mystery.jpg`. The `diff` program should _indicate_ these files are the same. This is because the code you first get from git simply copies the first file to another file, it doesn't actually decompress it. **You will use `diff` to check whether your implementation is working correctly locally, there are no JUnit tests for this project.**
+
+The main takeaways here in running before implementing `HuffProcess.decompress` are to 
+- Understand what to run when decompressing.
+- Understand how to use `diff` on the command line to compare files.
 
 ## Details on diff via the command line interface (CLI)
 
@@ -82,24 +92,19 @@ Once you are in the same folder as the files you would like to compare, you can 
 
 If the files are the same _nothing is printed_. If the files are different there's an indication of where they are different for text files, and just `different` if the files are binary/compressed/image files. For your purposes in P5 it isn't especially crucial that you understand the output printed by `diff` - generally you will just want to check if a decompressed file is exactly same as the original file before any compression/decompression.
 
+## `BitInputStream` and `BitOutputStream` Classes
+
+These two classes are provided to help in reading/writing bits in (un)compressed files. They extend the Java [InputStream](https://docs.oracle.com/javase/9/docs/api/java/io/InputStream.html) and [OutputStream](https://docs.oracle.com/javase/9/docs/api/java/io/OutputStream.html) classes, respectively. They function just like Scanner, except instead of reading in / writing out arbitrarily delimited “tokens”, they read/write a specified number of bits. Note that two consecutive calls to the `readBits` method will likely return different results since InputStream classes maintain an internal "cursor" or "pointer" to a spot in the stream from which to read -- and once read the bits won't be read again (unless the stream is reset).
+
+The only methods you will need to interact with are the following:
+1. *`int BitInputStream.readBits(int numBits)`*: This method reads from the source the specified number of bits and returns an integer. Since integers are 32-bit in Java, the parameter `numBits` must be between 1 and 32, inclusive. **It will return -1 if there are no more bits to read.**
+2. `void BitInputStream.reset()`: This method repositions the “cursor” to the beginning of the input file.
+3. `void BitOutputStream.writeBits(int numBits, int value)`: This method writes the least-significant `numBits` bits of the  parameter `value` to the output file.
+
+
+
 <br><br><br>
-
-# Part 0: Understanding and Running Starter Code
-
-Once you understand the Huffman coding algorithm, you should review this section to understand the organization of the starter code. For details on the `BitInputStream` and `BitOutputStream` classes, use the information in this document.
-
-
-## Running Starter Code (with incomplete `HuffProcessor.decompress`)
-
-**Run `HuffMainDecompress`**. This prompts for a file to decompress, then calls `HuffProcessor.decompress`. You're given a stub version of that method; it initially ***simply copies the first file to another file***, it doesn’t actually decompress it. To make sure you know how to use this program, we recommend you run the program as you fork/cloned it and as described below.
-
-Choose `mystery.jpg.hf` from the data folder to decompress (the `.hf` suffix indicates this has been compressed by a working `HuffProcessor.compress`). When prompted with a name for the file to save, use the default name the program supplies with a  `UHF prefix`, i.e., save with the name `UFH-mystery.jpg (that prefix is the default).  
-
-Then run `diff` on the command line/terminal [see details here](#details-on-diff-via-the-command-line-interface-cli) for information on using `diff`). Use diff to compare two files: the original, `mystery.jpg.hf` and the uncompressed version: `UHF-mystery.jpg`. The `diff` program should _indicate_ these files are the same. This is because the code you first get from git simply copies the first file to another file, it doesn't actually decompress it. **You will use `diff` to check whether your implementation is working correctly locally, there are no JUnit tests for this project.**
-
-The main takeaways here in running before implementing `HuffProcess.decompress` are to 
-- Understand what to run when decompressing.
-- Understand how to use `diff` on the command line to compare files. 
+ 
 
 ## Debugging
 It's not easy to debug when reading/writing bits at a time. You may choose to write _shadow_ print statements each time you read/write bits to echo to the screen what you're writing to a file. It will likely be helpful to print at different points where your code is failing or where an exception is thrown. Use the Ed discussion board and helper hours as well.
@@ -152,7 +157,7 @@ private HuffNode readTree(BitInputStream in) {
   }
 ``` 
 
-For example, the tree below corresponds to the bit sequence `0001X1Y01Z1W01A1B`, with each letter representing a 9-bit sequence to be stored in a leaf as shown in the tree to the right. You'll read these 9-bit chunks with an appropriate call of `readBits`. Rather than use 9, you should use `BITS_PER_WORD + 1`, the +1 is needed since one leaf stores `PSEUDO_EOF` so all leaf nodes store a 9-bit value. See the [appendix](#appendix-how-the-tree-in-decompress-was-generated) for a detailed explanation on how this tree was constructed.
+For example, the tree below corresponds to the bit sequence `0001X1Y01Z1W01A1B`, with each letter representing a 9-bit sequence to be stored in a leaf as shown in the tree diagrammed. You'll read these 9-bit chunks with an appropriate call of `readBits`. Rather than use 9, you should use `BITS_PER_WORD + 1`, the +1 is needed since one leaf stores `PSEUDO_EOF` so all leaf nodes store a 9-bit value. See the [appendix](#appendix-how-the-tree-in-decompress-was-generated) for a detailed explanation on how this tree was constructed.
 
 ### Example Tree
 
@@ -204,6 +209,8 @@ To test whether your decompression code works we suggest uncompressing three fil
 <br><br><br>
 
 # Part 2: Implementing `HuffProcessor.compress`
+
+**Do not start compress until decompress works.**
 
 There are five basic steps to compress a file that can then be decompressed using your already written decompress code.
 
