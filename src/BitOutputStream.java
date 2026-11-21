@@ -8,6 +8,8 @@
  *	@date 10 April 2016
  *  @date Updated November 2016 with comments and refactoring
  *  public/private
+ *  @date November 20, 2026, documentation updated
+
  */
 
 import java.io.File;

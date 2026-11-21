@@ -46,10 +46,17 @@ public class HuffProcessor {
 
 	private boolean myDebugging = false;
 	
+	/**
+	 * Create a HuffProcessor with debugging off
+	 */
 	public HuffProcessor() {
 		this(false);
 	}
 	
+	/**
+	 * Create a HuffProcessor with debugging specified
+	 * @param debug true if debugging on, else false
+	 */
 	public HuffProcessor(boolean debug) {
 		myDebugging = debug;
 	}
@@ -64,8 +71,8 @@ public class HuffProcessor {
 	 */
 	public void compress(BitInputStream in, BitOutputStream out){
 
-
 		// remove all this code when implementing compress
+		
 		while (true){
 			int val = in.readBits(BITS_PER_WORD);
 			if (val == -1) break;

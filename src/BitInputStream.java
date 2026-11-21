@@ -7,6 +7,7 @@
  *	@contributor Owen Astrachan
  *	@author Brian Lavallee
  *	@date 10 April 2016
+ *  @date November 20, 2026, documentation updated
  */
 
 import java.io.*;
@@ -36,10 +37,18 @@ public class BitInputStream extends InputStream {
 	private int bitsRead, available, limit;
 	private long bitBuffer;
 	
+	/**
+	 * Construct stream from name of accessible file
+	 * @param filePath
+	 */
 	public BitInputStream(String filePath) {
 		this(new File(filePath));
 	}
 	
+	/**
+	 * Construct stream from a File
+	 * @param fileSource is the accessible file that feeds this stream
+	 */
 	public BitInputStream(File fileSource) {
 		try {
 			initialize(new FileInputStream(fileSource));
@@ -49,6 +58,11 @@ public class BitInputStream extends InputStream {
 		}
 	}
 	
+	/**
+	 * Constrcut stream from an InputStream
+	 * thus implements Decorator Design Pattern
+	 * @param in
+	 */
 	public BitInputStream(InputStream in) {
 		initialize(in);
 	}
@@ -68,6 +82,12 @@ public class BitInputStream extends InputStream {
 		return bitsRead;
 	}
 	
+
+	/**	(non-Javadoc)
+	 * resets this stream to beginning. No need for a mark
+	 * e.g., as in java.io.InputStream
+	 * @see java.io.InputStream#reset()
+	 */
 	public void reset() {
 		try {
 			source.reset();
@@ -84,6 +104,11 @@ public class BitInputStream extends InputStream {
 		}
 	}
 	
+	/**	
+	 * close this stream and its underlying streams
+	 * @see java.io.InputStream#close()
+	 */
+	@Override 
 	public void close() {
 		try {
 			source.close();
@@ -100,6 +125,13 @@ public class BitInputStream extends InputStream {
 		//return readBits(BYTE_SIZE);
 	}
 	
+	/**
+	 * Read the specified number of bits from the underlying stream or
+	 * from buffer if it exists. "left-over" bits are stored internally
+	 * for subsequent reads
+	 * @param numBits is number of bits read and returned
+	 * @return numBits from unread buffer/file
+	 */
 	public int readBits(int numBits) {
 		if (numBits > INT_SIZE || numBits < 1) {
 			throw new RuntimeException("Illegal argument: numBits must be on [1, 32]");
