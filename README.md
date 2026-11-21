@@ -54,8 +54,6 @@ We first gave a Huffman coding assignment at Duke in Spring of 1994. Over the ye
 
 ## Completing the Assignments
 
-Please navigate to the [the details document](docs/details.md) to complete the assignment. All coding details and grading information are in that document.
-
-**There are no analysis questions for P6**
+Please navigate to the [the details document](docs/details.md) to complete the assignment. All coding details and grading information are in that document. You will have analysis questions for this assignment.
 
 
