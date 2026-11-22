@@ -19,9 +19,9 @@ public class InteractivePercolationVisualizer {
 			N = Integer.parseInt(args[0]);
 		}
 
-		// IPercolate perc = new PercolationDefault(N);
+		IPercolate perc = new PercolationDefault(N);
 		//IPercolate perc = new PercolationDFS(N);
-		IPercolate perc = new PercolationUF(new QuickUWPC(),N);
+		//IPercolate perc = new PercolationUF(new QuickUWPC(),N);
 		//IPercolate perc = new PercolationBFS(N);
 		System.out.printf("visualizing %dx%d grid\n",N,N);
 
